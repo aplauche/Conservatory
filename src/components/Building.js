@@ -8,6 +8,6 @@ export default function Building() {
   console.log(building)
 
   return (
-    <primitive object={building.scene} scale={0.2} />
+    <primitive castShadow object={building.scene} scale={0.2} />
   )
 }
