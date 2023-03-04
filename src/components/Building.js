@@ -7,7 +7,17 @@ export default function Building() {
 
   console.log(building)
 
+  building.scene.children.forEach(child => {
+    child.castShadow = true
+
+    if(child?.children.length > 0){
+      child.children.forEach(gchild => {
+        gchild.castShadow = true
+      })
+    }
+  })
+
   return (
-    <primitive castShadow object={building.scene} scale={0.2} />
+    <primitive  castShadow object={building.scene} scale={0.2} />
   )
 }

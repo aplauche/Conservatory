@@ -1,16 +1,13 @@
-import { MeshTransmissionMaterial, OrbitControls, PivotControls, TransformControls } from '@react-three/drei'
+import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PivotControls, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Suspense, useRef } from 'react'
 import Placeholder from './components/Placeholder'
 import Building from './components/Building'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import HoverTargets from './components/HoverTargets'
 
 export default function Experience(){
-
-
-
-    
 
 
 
@@ -18,49 +15,44 @@ export default function Experience(){
 
         <Perf position="top-left" />
 
-        <OrbitControls makeDefault />
+        <OrbitControls makeDefault  />
 
-        <directionalLight castShadow shadow-normalBias={0.05} position={ [ 1, 2, -3 ] } intensity={ 0.6 } />
+        <SoftShadows />
+        <BakeShadows />
+
+        <directionalLight 
+            castShadow 
+            shadow-camera-left={-10} 
+            shadow-camera-right={10} 
+            shadow-camera-top={10}  
+            shadow-camera-bottom={-10} 
+            shadow-normalBias={0.05} 
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+            position={ [ 2, 6.5, -3 ] } 
+            intensity={ 0.6 } 
+        />
+
+
         <ambientLight intensity={ 0.9 } />
-
-        {/* <pointLight position={[6,3, 0.2]} intensity={0.1}/> */}
-
 
 
         <mesh receiveShadow position-y={ - 15.18 } scale={ 1 }>
-            <cylinderGeometry args={[12, 12, 30, 32]} />
+            <cylinderGeometry args={[12, 12, 30, 64]} />
             <meshStandardMaterial color="#75975e" />
         </mesh>
-        {/* <mesh receiveShadow position-y={ - 15.18 } scale={ 1 }>
-            <boxGeometry args={[20, 30, 20]} />
-            <meshStandardMaterial color="#75975e" />
-        </mesh> */}
+
 
         {/* <Suspense fallback={ <Placeholder position-y={0.5} scale={[2,3,2]}/> }>
             <Hamburger scale={0.5}/>
         </Suspense> */}
 
-        <Building />
+        <Building  />
 
-        {/* <PivotControls 
-            anchor={[0,0,0]} 
-            depthTest={false}
-            lineWidth={2}
-            axisColors={['#9381ff', '#ff4d6d', "#78e582"]}
-            scale={1.2}
-            annotations={true}
-        >
-            <mesh position={[3.45,1, 0.2]} scale-z={12} scale-x={4} scale-y={6}>
-                <boxGeometry args={[1,1,1]} />
-                <MeshTransmissionMaterial 
-                    background={new THREE.Color("ivory")} 
-                    transmission={0.95}
-                    chromaticAberration={0.4} 
-                    thickness={0.03}
-                    roughness={0.3}
-                />
-            </mesh>
-        </PivotControls> */}
+        <HoverTargets />
+     
+
+    
 
         {/* <mesh position-y={2.75}>
                 <boxGeometry args={[20, 6, 20]} />
