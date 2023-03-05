@@ -18,6 +18,9 @@ export default function HoverTargets(){
       gsap.to(glass.current.position, { 
         y: 1
       });
+      gsap.to(glass.current.scale, { 
+        y: 4.5
+      });
       gsap.to(text.current, { 
         opacity: 1
       });
@@ -28,7 +31,10 @@ export default function HoverTargets(){
   const handleMouseOut = () => {
       console.log("moused out");
       gsap.to(glass.current.position, { 
-        y: -10
+        y: -1
+      });
+      gsap.to(glass.current.scale, { 
+        y: 0
       });
       gsap.to(text.current, { 
         opacity: 0
@@ -40,6 +46,10 @@ export default function HoverTargets(){
       setHovered(false)
   }
 
+  const handleClick = () => {
+    //gsap.to('.drawer', {x: 0})
+  }
+
   useEffect(() => {
     document.body.style.cursor = hovered ? 'pointer' : 'auto'
   }, [hovered])
@@ -48,15 +58,16 @@ export default function HoverTargets(){
   return (
     <>
     
-      <mesh ref={glass} position={[3.45,-10, 0.2]} scale-z={10.5} scale-x={4} scale-y={4.5}>
+      <mesh ref={glass} position={[3.45,-1, 0.2]} scale-z={10.5} scale-x={4} scale-y={0}>
           <boxGeometry args={[1,1,1]} />
-          <MeshTransmissionMaterial 
+          {/* <MeshTransmissionMaterial 
               background={new THREE.Color("#b3cf99")} 
               transmission={0.85}
               chromaticAberration={0} 
               thickness={0}
               roughness={1}
-          />
+          /> */}
+          <meshStandardMaterial color={"#fff"} transparent={true} opacity={0.5}/>
       </mesh>
 
       {/* <Text position={[3.45,5, 0.2]} color="#4b6043" rotation-y={ Math.PI / 2} anchorX="center" anchorY="middle">
@@ -67,13 +78,14 @@ export default function HoverTargets(){
 
       <Billboard
         position={[3.45,7.5, 0.2]}
+        rotation-y={Math.PI / 8}
         follow={true}
-        lockX={true}
+        lockX={false}
         lockY={false}
-        lockZ={true} // Lock the rotation on the z axis (default=false)
+        lockZ={false} // Lock the rotation on the z axis (default=false)
       >
-        <Center  >
-          <Text3D font={'./helvetiker_regular.typeface.json'}
+        <Center >
+          <Text3D font={'./bebas.json'}
                   bevelEnabled
                   height={0.2}
                   size={0.75}
@@ -95,7 +107,7 @@ export default function HoverTargets(){
         </Billboard>
 
 
-      <mesh position={[3.45,1, 0.2]} scale-z={10.5} scale-x={4} scale-y={4.5} onPointerOver={handleMouse} onPointerLeave={handleMouseOut}>
+      <mesh position={[3.45,1, 0.2]} scale-z={10.5} scale-x={4} scale-y={4.5} onClick={handleClick} onPointerOver={handleMouse} onPointerLeave={handleMouseOut}>
           <boxGeometry args={[1,1,1]} />
           <meshBasicMaterial  visible={false}/>
       </mesh>

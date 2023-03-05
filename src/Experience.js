@@ -15,7 +15,14 @@ export default function Experience(){
 
         <Perf position="top-left" />
 
-        <OrbitControls makeDefault  />
+        <OrbitControls 
+            makeDefault  
+            // maxDistance={50}
+            // minDistance={50}
+            maxPolarAngle={Math.PI / 2.05}
+            // autoRotate 
+            // autoRotateSpeed={0.75}
+        />
 
         <SoftShadows />
         <BakeShadows />
