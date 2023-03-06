@@ -38,11 +38,11 @@ export default function Room({
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
           <Center >
-            <Text3D font={'./bebas.json'}
+            <Text3D font={'./telegraph.json'}
                     bevelEnabled
                     height={0.2}
-                    size={0.75}
-                    letterSpacing={0.1}
+                    size={0.45}
+                    letterSpacing={0.01}
                     bevelSize={0.02}
                     bevelThickness={0.02}
                     bevelSegments={5}
@@ -52,8 +52,8 @@ export default function Room({
             <meshStandardMaterial ref={text} attach={'material'} color={'#658354'} transparent={true} opacity={0} />
             </Text3D>
           </Center>
-          <mesh position-z={-0.35}>
-            <RoundedBox args={[8 , 1.75 , 0.4 ]} radius={0.2} smoothness={6}>
+          <mesh  position-z={-0.35}>
+            <RoundedBox args={[6 , 1.5 , 0.4 ]} radius={0.2} smoothness={6}>
               <meshStandardMaterial ref={textBg} attach={'material'} color={'#e5e5e5'} transparent={true} opacity={0} /> 
             </RoundedBox>
           </mesh>

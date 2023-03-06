@@ -2,7 +2,6 @@ import { Billboard, Center, MeshTransmissionMaterial, RoundedBox, Text, Text3D }
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three'
-import PalmRoom from "./rooms/PalmRoom";
 import Room from "./rooms/Room";
 
 
@@ -60,13 +59,6 @@ export default function HoverTargets(){
 
   return (
     <>
-    
-      {/* <PalmRoom 
-        indicatorMaterial={indicatorMaterial} 
-        targetMaterial={targetMaterial}
-        handleMouse={handleMouse}
-        handleMouseOut={handleMouseOut}
-      /> */}
 
       <Room 
         indicatorMaterial={indicatorMaterial} 
