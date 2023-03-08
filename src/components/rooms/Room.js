@@ -7,10 +7,6 @@ import * as THREE from 'three'
 
 
 export default function Room({
-  targetMaterial,
-  indicatorMaterial,
-  handleMouse,
-  handleMouseOut,
   label,
   targetScale,
   targetPos
@@ -20,6 +16,53 @@ export default function Room({
   const glass = useRef()
   const text = useRef()
   const textBg = useRef()
+
+  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
+  const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
+
+
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto'
+  }, [hovered])
+
+
+  const handleMouse = () => {
+
+      setHovered(true)
+
+      gsap.to(glass.current.position, { 
+        y: 1
+      });
+      gsap.to(glass.current.scale, { 
+        y: targetScale.y
+      });
+      gsap.to(text.current, { 
+        opacity: 1
+      });
+      gsap.to(textBg.current, { 
+        opacity: 1
+      });
+  }
+  const handleMouseOut = () => {
+
+      gsap.to(glass.current.position, { 
+        y: -1
+      });
+      gsap.to(glass.current.scale, { 
+        y: 0
+      });
+      gsap.to(text.current, { 
+        opacity: 0
+      });
+      gsap.to(textBg.current, { 
+        opacity: 0
+      });
+
+      setHovered(false)
+  }
+
 
 
   return (
@@ -65,8 +108,8 @@ export default function Room({
           scale-z={targetScale.z / 1.02 } 
           scale-x={targetScale.x / 1.02 } 
           scale-y={targetScale.y / 2} 
-          onPointerOver={(e) => {e.stopPropagation(), handleMouse(glass, text, textBg)}} 
-          onPointerLeave={() => {handleMouseOut(glass, text, textBg)}}
+          onPointerOver={(e) => {e.stopPropagation(), handleMouse()}} 
+          onPointerLeave={() => {handleMouseOut()}}
         >
             <boxGeometry args={[1,1,1]} />
         </mesh>
