@@ -9,7 +9,8 @@ import * as THREE from 'three'
 export default function Room({
   label,
   targetScale,
-  targetPos
+  targetPos,
+  updateHovered
 }){
 
 
@@ -17,20 +18,13 @@ export default function Room({
   const text = useRef()
   const textBg = useRef()
 
-  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
+  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 1})
   const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
-
-
-  const [hovered, setHovered] = useState(false)
-
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'pointer' : 'auto'
-  }, [hovered])
 
 
   const handleMouse = () => {
 
-      setHovered(true)
+      updateHovered(true)
 
       gsap.to(glass.current.position, { 
         y: 1
@@ -47,6 +41,8 @@ export default function Room({
   }
   const handleMouseOut = () => {
 
+    updateHovered(false)
+
       gsap.to(glass.current.position, { 
         y: -1
       });
@@ -60,7 +56,6 @@ export default function Room({
         opacity: 0
       });
 
-      setHovered(false)
   }
 
 
