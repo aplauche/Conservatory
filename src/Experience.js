@@ -1,15 +1,21 @@
 import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PivotControls, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { Suspense, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import Placeholder from './components/Placeholder'
 import Building from './components/Building'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import HoverTargets from './components/HoverTargets'
+import useRoom from './stores/useRoom'
 
 export default function Experience(){
 
 
+    const currentlySelected = useRoom((state) => state.currentlySelected)
+
+    useEffect(() => {
+        console.log(currentlySelected)
+    },[currentlySelected])
 
     return <>
 

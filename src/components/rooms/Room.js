@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Billboard, Center, MeshTransmissionMaterial, RoundedBox, Text, Text3D } from "@react-three/drei";
 
+
 import * as THREE from 'three'
+import useRoom from "../../stores/useRoom";
 
 
 
@@ -18,9 +20,10 @@ export default function Room({
   const text = useRef()
   const textBg = useRef()
 
-  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 1})
+  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
   const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
 
+  const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
 
   const handleMouse = () => {
 
@@ -58,7 +61,9 @@ export default function Room({
 
   }
 
-
+  const handleClick = () => {
+    handleRoomSelect(label)
+  }
 
   return (
     <>
@@ -105,6 +110,7 @@ export default function Room({
           scale-y={targetScale.y / 2} 
           onPointerOver={(e) => {e.stopPropagation(), handleMouse()}} 
           onPointerLeave={() => {handleMouseOut()}}
+          onClick={(e)=> {e.stopPropagation(), handleClick()}}
         >
             <boxGeometry args={[1,1,1]} />
         </mesh>
