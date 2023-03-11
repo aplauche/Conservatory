@@ -1,11 +1,16 @@
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
+import Drawer from './components/Drawer.js'
 import Experience from './Experience.js'
+import useRoom from './stores/useRoom.js'
+
 
 export default function App(){
 
 
   return (
     <>
+    
         <Canvas
             shadows
             camera={ {
@@ -17,7 +22,8 @@ export default function App(){
         >
             <Experience />
         </Canvas>
-
+        
+        <Drawer /> 
     </>
   )
 

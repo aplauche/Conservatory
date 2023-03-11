@@ -3,19 +3,34 @@ import { Perf } from 'r3f-perf'
 import { Suspense, useEffect, useRef } from 'react'
 import Placeholder from './components/Placeholder'
 import Building from './components/Building'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import HoverTargets from './components/HoverTargets'
 import useRoom from './stores/useRoom'
+import gsap from 'gsap'
 
 export default function Experience(){
 
 
-    const currentlySelected = useRoom((state) => state.currentlySelected)
 
+    const currentlySelected = useRoom(state => state.currentlySelected)
+    const deg2rad = degrees => degrees * (Math.PI / 180);
+  
+    const camera =  useThree(({camera}) => {
+      return camera
+    });
+  
     useEffect(() => {
-        console.log(currentlySelected)
-    },[currentlySelected])
+        console.log(camera)
+
+        // gsap.to(camera.position, { 
+        //     y: 15,
+        //     x: 25,
+        //     z: 25
+        // });
+
+    }, [currentlySelected])
+  
 
     return <>
 

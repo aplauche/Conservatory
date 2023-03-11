@@ -15,7 +15,18 @@ body,
     top: 0;
     height: 100vh;
     background: white;
-    width: 600px;
+    width: min(80vw, 500px);
     right: 0;
-    transform: translateX(100%);
+    /* transform: translateX(100%); */
+    z-index: 3;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    right: 0;
+    z-index: 2;
 }

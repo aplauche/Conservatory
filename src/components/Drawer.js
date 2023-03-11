@@ -3,13 +3,18 @@ import useRoom from "../stores/useRoom"
 export default function Drawer( ){
 
   const currentlySelected = useRoom((state) => state.currentlySelected)
+  const closeRoomDrawer = useRoom((state) => state.closeRoomDrawer)
 
   return (
-    <>
-      <div className="">
-
-
-      </div>
+    <> 
+      {currentlySelected !== null && (
+        <>
+        <div className="drawer">
+          {currentlySelected}
+        </div>
+        <div className="backdrop" onClick={closeRoomDrawer}></div>
+        </>  
+      )}
     </>
   )
 }
