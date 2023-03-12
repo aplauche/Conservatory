@@ -20,7 +20,9 @@ export default function App(){
                 position: [  30, 22, 30 ]
             } }
         >
+            
             <Experience />
+   
         </Canvas>
         
         <Drawer /> 

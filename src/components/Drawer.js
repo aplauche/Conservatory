@@ -10,7 +10,7 @@ export default function Drawer( ){
       {currentlySelected !== null && (
         <>
         <div className="drawer">
-          {currentlySelected}
+          {currentlySelected.name}
         </div>
         <div className="backdrop" onClick={closeRoomDrawer}></div>
         </>  

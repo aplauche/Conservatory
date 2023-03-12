@@ -16,27 +16,47 @@ export default function Experience(){
     const currentlySelected = useRoom(state => state.currentlySelected)
     const deg2rad = degrees => degrees * (Math.PI / 180);
   
+    const controls = useRef()
     const camera =  useThree(({camera}) => {
       return camera
     });
   
     useEffect(() => {
-        console.log(camera)
-
-        // gsap.to(camera.position, { 
-        //     y: 15,
-        //     x: 25,
-        //     z: 25
-        // });
-
+        if(currentlySelected){
+            gsap.to(camera.position, { 
+                x: currentlySelected.cameraShift.x,
+                y: currentlySelected.cameraShift.y,
+                z: currentlySelected.cameraShift.z,
+            });
+            gsap.to(controls.current.target, { 
+                x: 4,
+                y: 0,
+                z: -4,
+            });
+        } else {
+            gsap.to(camera.position, { 
+                x: 30,
+                y: 22,
+                z: 30
+            });
+            gsap.to(controls.current.target, { 
+                x: 0,
+                y: 0,
+                z: 0,
+            });
+        }
     }, [currentlySelected])
   
+    // useFrame(state => {
+    //     console.log(camera)
+    // })
 
     return <>
 
         <Perf position="top-left" />
 
         <OrbitControls 
+            ref={controls}
             makeDefault  
             // maxDistance={50}
             // minDistance={50}
@@ -70,10 +90,6 @@ export default function Experience(){
             <meshStandardMaterial color="#75975e" />
         </mesh>
 
-
-        {/* <Suspense fallback={ <Placeholder position-y={0.5} scale={[2,3,2]}/> }>
-            <Hamburger scale={0.5}/>
-        </Suspense> */}
 
         <Building  />
 

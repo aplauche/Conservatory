@@ -2,7 +2,8 @@ import { Billboard, Center, MeshTransmissionMaterial, RoundedBox, Text, Text3D }
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three'
-import Room from "./rooms/Room";
+import useRoom from "../stores/useRoom";
+import Room from "./Room";
 
 
 export default function HoverTargets(){
@@ -10,6 +11,8 @@ export default function HoverTargets(){
   // const glass = useRef()
   // const text = useRef()
   // const textBg = useRef()
+
+  const rooms = useRoom(state => state.rooms)
 
   const [hovered, setHovered] = useState(false)
 
@@ -21,26 +24,16 @@ export default function HoverTargets(){
   return (
     <>
 
-      <Room 
-        updateHovered={setHovered}
-        label={"Palm Room"}
-        targetScale={{x: 4, y: 4.5, z: 10.5}}
-        targetPos={{x: 3.45, y: 0, z:0.2}}
-      />
-
-      <Room 
-        updateHovered={setHovered}
-        label={"Fern Room"}
-        targetScale={{x: 5.5, y: 4.5, z: 5}}
-        targetPos={{x: -1.25, y: 0, z:0.2}}
-      />
-
-      <Room 
-        updateHovered={setHovered}
-        label={"Information"}
-        targetScale={{x: 2.5, y: 2.5, z: 7}}
-        targetPos={{x: 6.5, y: 0, z:0.2}}
-      />
+      {rooms.map((room, idx) => (
+        <Room 
+          index={idx}
+          key={room.name}
+          updateHovered={setHovered}
+          label={room.name}
+          targetScale={room.targetScale}
+          targetPos={room.targetPos}
+        />
+      ))}
       
     </>
   )

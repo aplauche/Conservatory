@@ -4,11 +4,12 @@ import { Billboard, Center, MeshTransmissionMaterial, RoundedBox, Text, Text3D }
 
 
 import * as THREE from 'three'
-import useRoom from "../../stores/useRoom";
+import useRoom from "../stores/useRoom";
 
 
 
 export default function Room({
+  index,
   label,
   targetScale,
   targetPos,
@@ -20,7 +21,7 @@ export default function Room({
   const text = useRef()
   const textBg = useRef()
 
-  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
+  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0.3})
   const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
 
   const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
@@ -62,7 +63,7 @@ export default function Room({
   }
 
   const handleClick = () => {
-    handleRoomSelect(label)
+    handleRoomSelect(index)
   }
 
   return (
