@@ -10,7 +10,20 @@ export default function Drawer( ){
       {currentlySelected !== null && (
         <>
         <div className="drawer">
-          {currentlySelected.name}
+          <div className="name">
+            <h1>{currentlySelected.name}</h1>
+          </div>
+          <div className="image">
+            
+          </div>
+          <div className="info">
+
+          </div>
+          <div className="cta">
+            <div className="button">
+              Explore
+            </div>
+          </div>
         </div>
         <div className="backdrop" onClick={closeRoomDrawer}></div>
         </>  
