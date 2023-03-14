@@ -88,6 +88,14 @@ body,
     border: 2px solid white;
     padding: 1.2rem 2rem;
     text-transform: uppercase;
+    cursor: pointer;
+        
+}
+
+.drawer .button:hover {
+
+    background: white;
+    color: black
         
 }
 

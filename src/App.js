@@ -2,11 +2,13 @@ import { Canvas, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import Drawer from './components/Drawer.js'
 import Experience from './Experience.js'
+import PanoScene from './PanoScene.js'
 import useRoom from './stores/useRoom.js'
 
 
 export default function App(){
 
+  const panoScene = useRoom(state => state.panoScene)
 
   return (
     <>
@@ -21,7 +23,12 @@ export default function App(){
             } }
         >
             
-            <Experience />
+            {!panoScene ? (
+              <Experience />
+            ): (
+              <PanoScene />
+            )}
+        
    
         </Canvas>
         

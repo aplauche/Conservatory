@@ -4,6 +4,8 @@ export default function Drawer( ){
 
   const currentlySelected = useRoom((state) => state.currentlySelected)
   const closeRoomDrawer = useRoom((state) => state.closeRoomDrawer)
+  const exitPanoScene = useRoom((state) => state.exitPanoScene)
+  const loadPanoScene = useRoom((state) => state.loadPanoScene)
 
   return (
     <> 
@@ -20,9 +22,9 @@ export default function Drawer( ){
             {currentlySelected.description}
           </div>
           <div className="cta">
-            <div className="button">
+            <button onClick={() => {loadPanoScene(true)}} className="button">
               Explore
-            </div>
+            </button>
           </div>
         </div>
         <div className="backdrop" onClick={closeRoomDrawer}></div>

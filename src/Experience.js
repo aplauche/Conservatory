@@ -14,7 +14,6 @@ export default function Experience(){
 
 
     const currentlySelected = useRoom(state => state.currentlySelected)
-    const deg2rad = degrees => degrees * (Math.PI / 180);
   
     const controls = useRef()
     const camera =  useThree(({camera}) => {
@@ -94,23 +93,6 @@ export default function Experience(){
         <Building  />
 
         <HoverTargets />
-     
-
-    
-
-        {/* <mesh position-y={2.75}>
-                <boxGeometry args={[20, 6, 20]} />
-                <MeshTransmissionMaterial 
-                    background={new THREE.Color("ivory")} 
-                    transmission={0.95}
-                    chromaticAberration={0.01} 
-                    thickness={0.1}
-                    roughness={0.3}
-                    samples={6}
-                    resolution={8000}
-                />
-
-            </mesh> */}
 
     </>
 }
