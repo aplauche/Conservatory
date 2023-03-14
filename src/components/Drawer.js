@@ -14,10 +14,10 @@ export default function Drawer( ){
             <h1>{currentlySelected.name}</h1>
           </div>
           <div className="image">
-            
+            <img src={window.location.origin + currentlySelected.photo} />
           </div>
           <div className="info">
-
+            {currentlySelected.description}
           </div>
           <div className="cta">
             <div className="button">

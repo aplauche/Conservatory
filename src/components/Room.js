@@ -21,7 +21,7 @@ export default function Room({
   const text = useRef()
   const textBg = useRef()
 
-  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0.3})
+  const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
   const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
 
   const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
