@@ -5,7 +5,9 @@ export default [
     targetPos: {x: 3.45, y: 0, z:0.2},
     description: "At 65 ft high and 90 ft wide, this is the largest room in the Conservatory. It is designed as an idealized tropical landscape, featuring more than 70 graceful palms, as well as other plants from warm habitats all around the world.",
     photo: "/images/palm-house.jpeg",
-    cameraShift: {x:34, y:14, z: 12}
+    cameraShift: {x:34, y:14, z: 12},
+    pano: "/images/sample-pano.jpg"
+
   },
   {
     name: "Fern Room",

@@ -1,4 +1,4 @@
-import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PivotControls, SoftShadows, TransformControls } from '@react-three/drei'
+import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Suspense, useEffect, useRef } from 'react'
 import Placeholder from './components/Placeholder'
@@ -12,17 +12,22 @@ import gsap from 'gsap'
 export default function Experience(){
 
 
+    const camera = useRef()
 
-    const currentlySelected = useRoom(state => state.currentlySelected)
-  
     const controls = useRef()
-    const camera =  useThree(({camera}) => {
-      return camera
-    });
-  
+
+    const set = useThree((state) => state.set)
+    const currentlySelected = useRoom(state => state.currentlySelected)
+
+
     useEffect(() => {
-        if(currentlySelected){
-            gsap.to(camera.position, { 
+      set({ camera: camera.current })
+    }, [])
+
+    useEffect(() => {
+        let mounted = true;
+        if(currentlySelected && mounted){
+            gsap.to(camera.current.position, { 
                 x: currentlySelected.cameraShift.x,
                 y: currentlySelected.cameraShift.y,
                 z: currentlySelected.cameraShift.z,
@@ -33,7 +38,7 @@ export default function Experience(){
                 z: -4,
             });
         } else {
-            gsap.to(camera.position, { 
+            gsap.to(camera.current.position, { 
                 x: 30,
                 y: 22,
                 z: 30
@@ -44,7 +49,11 @@ export default function Experience(){
                 z: 0,
             });
         }
-    }, [currentlySelected])
+
+        return () => {
+            mounted = false
+        }
+    }, [currentlySelected, camera.current])
   
     // useFrame(state => {
     //     console.log(camera)
@@ -53,16 +62,41 @@ export default function Experience(){
     return <>
 
             {/* <Perf position="top-left" /> */}
+{/* 
+        // <OrbitControls 
+        //     ref={controls}
+        //     makeDefault  
+        //     // maxDistance={50}
+        //     // minDistance={50}
+        //     maxPolarAngle={Math.PI / 2.05}
+        //     // autoRotate 
+        //     // autoRotateSpeed={0.75}
+        // /> */}
+
+        <PerspectiveCamera 
+            name="FBO Camera"
+            //makeDefault
+            ref={camera}
+            fov={25}
+            near={0.1}
+            far={200}
+            position={[  30, 22, 30 ]}
+        />
+
 
         <OrbitControls 
-            ref={controls}
+            camera={camera?.current}
             makeDefault  
+            ref={controls}
             // maxDistance={50}
             // minDistance={50}
             maxPolarAngle={Math.PI / 2.05}
             // autoRotate 
             // autoRotateSpeed={0.75}
-        />
+        >
+
+          
+        </OrbitControls>
 
         <SoftShadows />
         <BakeShadows />

@@ -1,46 +1,52 @@
-import { BakeShadows, OrbitControls, SoftShadows } from '@react-three/drei'
+import { BakeShadows, Environment, OrbitControls, PerspectiveCamera, SoftShadows } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
+import { useEffect, useRef } from 'react'
 
 export default function PanoScene(){
 
+    const camera = useRef()
+    const set = useThree((state) => state.set)
+
+    useEffect(() => {
+      set({ camera: camera.current })
+    }, [])
 
 
     return <>
 
-            {/* <Perf position="top-left" /> */}
+        <PerspectiveCamera 
+            name="FBO Camera"
+            //makeDefault
+            ref={camera}
+            fov={75}
+            near={0.1}
+            far={200}
+            position={[  0,0,0 ]}
+        />
+
 
         <OrbitControls 
+            camera={camera?.current}
             makeDefault  
+            reverseOrbit={true}
+            panSpeed={0.2}
+            rotateSpeed={0.2}
             // maxDistance={50}
             // minDistance={50}
-            maxPolarAngle={Math.PI / 2.05}
             // autoRotate 
             // autoRotateSpeed={0.75}
         />
 
-        <SoftShadows />
-        <BakeShadows />
 
-        <directionalLight 
-            castShadow 
-            shadow-camera-left={-10} 
-            shadow-camera-right={10} 
-            shadow-camera-top={10}  
-            shadow-camera-bottom={-10} 
-            shadow-normalBias={0.05} 
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            position={ [ 2, 6.5, -3 ] } 
-            intensity={ 0.6 } 
-        />
+      <Environment
+        background={true} // can be true, false or "only" (which only sets the background) (default: false)
+        blur={0} // blur factor between 0 and 1 (default: 0, only works with three 0.146 and up)
+        // files={`${window.location.origin}/images/sample-pano.jpg`}
 
-
-        <ambientLight intensity={ 0.9 } />
-
-
-        <mesh receiveShadow position-y={ - 15.18 } scale={ 1 }>
-            <cylinderGeometry args={[12, 12, 30, 64]} />
-            <meshStandardMaterial color="#75975e" />
-        </mesh>
+        preset={'sunset'}
+        scene={undefined} // adds the ability to pass a custom THREE.Scene, can also be a ref
+        encoding={undefined} // adds the ability to pass a custom THREE.TextureEncoding (default: THREE.sRGBEncoding for an array of files and THREE.LinearEncoding for a single texture)
+      />
 
     </>
 }

@@ -69,7 +69,7 @@ export default function Room({
   return (
     <>
       <group position={[targetPos.x, targetPos.y, targetPos.z]}>
-        <mesh ref={glass}  scale-z={targetScale.z} scale-x={targetScale.x} scale-y={0} material={indicatorMaterial}>
+        <mesh ref={glass} position-y={-1} scale-z={targetScale.z} scale-x={targetScale.x} scale-y={0} material={indicatorMaterial}>
           <boxGeometry args={[1,1,1]} />
         </mesh>
 
