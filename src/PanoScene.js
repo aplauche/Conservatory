@@ -17,7 +17,6 @@ export default function PanoScene(){
 
         <PerspectiveCamera 
             name="Pano Camera"
-            makeDefault
             ref={camera}
             fov={75}
             near={0.1}
@@ -27,15 +26,10 @@ export default function PanoScene(){
 
 
         <OrbitControls 
-         
             reverseOrbit={true}
             panSpeed={0.2}
             rotateSpeed={0.2}
             ref={controls}
-            // maxDistance={50}
-            // minDistance={50}
-            // autoRotate 
-            // autoRotateSpeed={0.75}
         />
 
 

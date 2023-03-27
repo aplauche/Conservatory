@@ -9,7 +9,7 @@ import HoverTargets from './components/HoverTargets'
 import useRoom from './stores/useRoom'
 import gsap from 'gsap'
 
-export default function Experience(){
+export default function MainScene(){
 
 
     const camera = useRef()
@@ -22,12 +22,10 @@ export default function Experience(){
 
     useEffect(() => {
       set({ camera: camera.current })
-
     }, [])
 
     useEffect(() => {
-        let mounted = true;
-        if(currentlySelected && mounted){
+        if(currentlySelected){
             gsap.to(camera.current.position, { 
                 x: currentlySelected.cameraShift.x,
                 y: currentlySelected.cameraShift.y,
@@ -52,21 +50,17 @@ export default function Experience(){
         }
 
         return () => {
-            mounted = false
+
         }
     }, [currentlySelected, camera.current])
   
-    // useFrame(state => {
-    //     console.log(camera)
-    // })
 
     return <>
 
-            {/* <Perf position="top-left" /> */}
+        {/* <Perf position="top-left" /> */}
 
         <PerspectiveCamera 
             name="FBO Camera"
-            makeDefault
             ref={camera}
             fov={25}
             near={0.1}
@@ -75,15 +69,12 @@ export default function Experience(){
         />
 
 
-        <OrbitControls 
-            //camera={camera?.current}
-            //makeDefault  
+        <OrbitControls   
             ref={controls}
-            // maxDistance={50}
-            // minDistance={50}
+            maxDistance={50}
+            minDistance={50}
             maxPolarAngle={Math.PI / 2.05}
-            // autoRotate 
-            // autoRotateSpeed={0.75}
+
         />
 
           
