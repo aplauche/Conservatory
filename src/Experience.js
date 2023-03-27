@@ -22,6 +22,7 @@ export default function Experience(){
 
     useEffect(() => {
       set({ camera: camera.current })
+
     }, [])
 
     useEffect(() => {
@@ -62,20 +63,10 @@ export default function Experience(){
     return <>
 
             {/* <Perf position="top-left" /> */}
-{/* 
-        // <OrbitControls 
-        //     ref={controls}
-        //     makeDefault  
-        //     // maxDistance={50}
-        //     // minDistance={50}
-        //     maxPolarAngle={Math.PI / 2.05}
-        //     // autoRotate 
-        //     // autoRotateSpeed={0.75}
-        // /> */}
 
         <PerspectiveCamera 
             name="FBO Camera"
-            //makeDefault
+            makeDefault
             ref={camera}
             fov={25}
             near={0.1}
@@ -85,18 +76,17 @@ export default function Experience(){
 
 
         <OrbitControls 
-            camera={camera?.current}
-            makeDefault  
+            //camera={camera?.current}
+            //makeDefault  
             ref={controls}
             // maxDistance={50}
             // minDistance={50}
             maxPolarAngle={Math.PI / 2.05}
             // autoRotate 
             // autoRotateSpeed={0.75}
-        >
+        />
 
           
-        </OrbitControls>
 
         <SoftShadows />
         <BakeShadows />

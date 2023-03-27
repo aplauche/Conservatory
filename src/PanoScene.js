@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react'
 export default function PanoScene(){
 
     const camera = useRef()
+    const controls = useRef()
     const set = useThree((state) => state.set)
 
     useEffect(() => {
@@ -15,8 +16,8 @@ export default function PanoScene(){
     return <>
 
         <PerspectiveCamera 
-            name="FBO Camera"
-            //makeDefault
+            name="Pano Camera"
+            makeDefault
             ref={camera}
             fov={75}
             near={0.1}
@@ -26,11 +27,11 @@ export default function PanoScene(){
 
 
         <OrbitControls 
-            camera={camera?.current}
-            makeDefault  
+         
             reverseOrbit={true}
             panSpeed={0.2}
             rotateSpeed={0.2}
+            ref={controls}
             // maxDistance={50}
             // minDistance={50}
             // autoRotate 

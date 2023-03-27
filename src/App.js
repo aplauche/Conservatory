@@ -31,6 +31,9 @@ export default function App(){
 
             {/* <Controls /> */}
 
+          
+
+
             
             {!panoScene ? (
               <Experience />
