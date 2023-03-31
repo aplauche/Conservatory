@@ -22,9 +22,9 @@ export default function Drawer( ){
             {currentlySelected.description}
           </div>
           <div className="cta">
-            <button onClick={() => {loadPanoScene(true)}} className="button">
+            <a href={'/room/1'} className="button">
               Explore
-            </button>
+            </a>
           </div>
         </div>
         <div className="backdrop" onClick={closeRoomDrawer}></div>

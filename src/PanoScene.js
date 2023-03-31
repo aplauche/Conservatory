@@ -4,25 +4,10 @@ import { useEffect, useRef } from 'react'
 
 export default function PanoScene(){
 
-    const camera = useRef()
+
     const controls = useRef()
-    const set = useThree((state) => state.set)
-
-    useEffect(() => {
-      set({ camera: camera.current })
-    }, [])
-
 
     return <>
-
-        <PerspectiveCamera 
-            name="Pano Camera"
-            ref={camera}
-            fov={75}
-            near={0.1}
-            far={200}
-            position={[  0,0,0 ]}
-        />
 
 
         <OrbitControls 
@@ -30,6 +15,7 @@ export default function PanoScene(){
             panSpeed={0.2}
             rotateSpeed={0.2}
             ref={controls}
+            makeDefault
         />
 
 
