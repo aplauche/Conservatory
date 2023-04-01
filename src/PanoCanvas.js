@@ -12,7 +12,7 @@ export default function PanoCanvas(){
         >
               
               
-              <PanoScene />
+          <PanoScene />
 
         
    

@@ -142,16 +142,21 @@ export default function Room({
             center={false}
             
             style={{
-              background: "#fff",
-              padding: "20px 30px",
+              padding: "4px",
+              border: "2px solid white",
+              //background: "transparent"
               transform: "translate(50%, 0%)",
               opacity: 0,
-              color: "#666",
-
-
             }}
           >
-            <h3>{label}</h3>
+            <div style={{
+              background: "#fff",
+              padding: "16px 24px",
+
+              color: "#666",
+            }}>         
+              <h3>{label}</h3>
+            </div>
           </Html>
 
         </group>
