@@ -1,4 +1,4 @@
-import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, SoftShadows, TransformControls } from '@react-three/drei'
+import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, RoundedBox, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Suspense, useEffect, useRef } from 'react'
 import Placeholder from './components/Placeholder'
@@ -99,10 +99,33 @@ export default function MainScene(){
         <ambientLight intensity={ 0.9 } />
 
 
-        <mesh receiveShadow position-y={ - 15.18 } scale={ 1 }>
+        {/* <mesh receiveShadow  scale={ 1 }>
             <cylinderGeometry args={[12, 12, 30, 64]} />
             <meshStandardMaterial color="#75975e" />
-        </mesh>
+        </mesh> */}
+
+        <RoundedBox
+            position-y={ -0.75 }
+            args={[22, 1.25, 20]} // Width, height, depth. Default is [1, 1, 1]
+            radius={0.35} // Radius of the rounded corners. Default is 0.05
+            smoothness={8} // The number of curve segments. Default is 4
+            creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
+            receiveShadow
+            >
+            <meshStandardMaterial color="#75975e" />
+        </RoundedBox>
+
+        <RoundedBox
+            position-y={ -13.5 }
+            //position-z={ 1 }
+            args={[26, 25, 26]} // Width, height, depth. Default is [1, 1, 1]
+            radius={0.35} // Radius of the rounded corners. Default is 0.05
+            smoothness={8} // The number of curve segments. Default is 4
+            creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
+            receiveShadow
+            >
+            <meshStandardMaterial color="#b0a27d" />
+        </RoundedBox>
 
 
         <Building  />
