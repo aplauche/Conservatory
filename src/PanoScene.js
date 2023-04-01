@@ -10,13 +10,13 @@ export default function PanoScene(){
     return <>
 
 
-        <OrbitControls 
-            reverseOrbit={true}
-            panSpeed={0.2}
-            rotateSpeed={0.2}
-            ref={controls}
-            makeDefault
-        />
+      <OrbitControls 
+          reverseOrbit={true}
+          panSpeed={0.2}
+          rotateSpeed={0.2}
+          ref={controls}
+          makeDefault
+      />
 
 
       <Environment
