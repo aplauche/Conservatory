@@ -39,8 +39,8 @@ export default function MainScene(){
         } else {
             gsap.to(camera.current.position, { 
                 x: 30,
-                y: 22,
-                z: 30
+                y: 16,
+                z: 26
             });
             gsap.to(controls.current.target, { 
                 x: 0,
@@ -62,7 +62,7 @@ export default function MainScene(){
         <PerspectiveCamera 
             name="FBO Camera"
             ref={camera}
-            fov={25}
+            fov={22}
             near={0.1}
             far={200}
             position={[  30, 22, 30 ]}
@@ -71,8 +71,8 @@ export default function MainScene(){
 
         <OrbitControls   
             ref={controls}
-            maxDistance={50}
-            minDistance={50}
+            maxDistance={60}
+            minDistance={60}
             maxPolarAngle={Math.PI / 2.05}
 
         />
