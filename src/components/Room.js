@@ -27,35 +27,53 @@ export default function Room({
 
   const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
 
+  const [gsapContext] = useState(gsap.context(() => {}))
+  const [animating, setAnimating] = useState(false)
+
   const handleMouse = () => {
 
       updateHovered(true)
 
-      const tl = gsap.timeline()
+      setAnimating(true)
 
-      gsap.to(glass.current.position, { 
-        y: 1
-      });
-      gsap.to(glass.current.scale, { 
-        y: targetScale.y
-      });
+      gsapContext.add(() => {
+        const tl = gsap.timeline()
 
-      tl
-        .to(textLine.current.scale, { 
+        gsap.to(glass.current.position, { 
           y: 1
-        })
-        .to(textLine.current.position, { 
-        y: 0
-        }, '-=100%')
-        .to(text.current, { 
-          opacity: 1
-        })
+        });
+        gsap.to(glass.current.scale, { 
+          y: targetScale.y
+        });
+  
+        tl
+          .to(textLine.current.scale, { 
+            y: 1
+          })
+          .to(textLine.current.position, { 
+          y: 0
+          }, '-=100%')
+          .to(text.current, { 
+            opacity: 1
+          }, "-=50%")
+          .add(()=>{
+            setAnimating(false)
+          })
+      });
+
+
   }
   const handleMouseOut = () => {
 
     updateHovered(false)
 
-      const tl = gsap.timeline()
+    if(animating) {
+      gsapContext.revert()
+      return
+    } 
+
+    gsapContext.add(() => {
+      const mouseOurTl = gsap.timeline()
 
       gsap.to(glass.current.position, { 
         y: -1
@@ -63,16 +81,19 @@ export default function Room({
       gsap.to(glass.current.scale, { 
         y: 0
       });
-      tl
+      mouseOurTl
         .to(text.current, { 
           opacity: 0
         })
         .to(textLine.current.scale, { 
           y: 0
-        })
+        }, "-=50%")
         .to(textLine.current.position, { 
         y: -2.5
         }, '-=100%')
+
+    });
+
 
 
   }
@@ -85,7 +106,7 @@ export default function Room({
     <>
       <group position={[targetPos.x, targetPos.y, targetPos.z]}>
 
-        
+
         <mesh ref={glass} position-y={-1} scale-z={targetScale.z} scale-x={targetScale.x} scale-y={0} material={indicatorMaterial}>
           <boxGeometry args={[1,1,1]} />
         </mesh>
@@ -125,7 +146,9 @@ export default function Room({
               padding: "20px 30px",
               transform: "translate(50%, 0%)",
               opacity: 0,
-              color: "#666"
+              color: "#666",
+
+
             }}
           >
             <h3>{label}</h3>
