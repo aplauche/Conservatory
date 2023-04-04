@@ -3,6 +3,7 @@ import MainScene from "./MainScene"
 import Drawer from './components/Drawer.js'
 import { Suspense } from "react"
 import { Loader } from "@react-three/drei"
+import MainOverlay from "./components/MainOverlay"
 
 
 export default function MainCanvas(){
@@ -19,6 +20,7 @@ export default function MainCanvas(){
         </Canvas>
         <Loader />
         <Drawer /> 
+        <MainOverlay />
     </>
   )
 

@@ -18,6 +18,22 @@ export default [
     cameraShift: {x:34, y:14, z: 12}
   },
   {
+    name: "Bloom Room",
+    targetScale: {x: 5.5, y: 4.5, z: 2.6},
+    targetPos: {x: -1, y: 0, z: -3.3},
+    description: "Lorem Ipsum",
+    photo: "",
+    cameraShift: {x:34, y:14, z: 12}
+  },
+  {
+    name: "Desert Room",
+    targetScale: {x: 5.5, y: 4.5, z: 2.6},
+    targetPos: {x: -1, y: 0, z:3.45},
+    description: "Lorem Ipsum",
+    photo: "",
+    cameraShift: {x:34, y:14, z: 12}
+  },
+  {
     name: "Information",
     targetScale: {x: 2.5, y: 2.5, z: 7},
     targetPos: {x: 6.5, y: 0, z:0.2},

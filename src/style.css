@@ -30,6 +30,32 @@ body,
     font-family: 'Montreal', sans-serif;
 }
 
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.header-container {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    backdrop-filter: blur(32px);
+    //background: rgba(0,0,0, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.header-logo {
+    color: white;
+    font-size: 1.4rem;
+
+}
+
 .drawer {
     position: fixed;
     top: 0;

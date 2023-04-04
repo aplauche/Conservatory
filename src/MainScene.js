@@ -16,12 +16,17 @@ export default function MainScene(){
 
     const controls = useRef()
 
+    const mainObject = useRef()
+
     const set = useThree((state) => state.set)
     const currentlySelected = useRoom(state => state.currentlySelected)
 
 
     useEffect(() => {
       set({ camera: camera.current })
+    //   gsap.from(mainObject.current.position, {
+    //     y: -20, duration: 1.5
+    //   })
     }, [])
 
     useEffect(() => {
@@ -81,7 +86,6 @@ export default function MainScene(){
 
         <SoftShadows />
         <BakeShadows />
-
         <directionalLight 
             castShadow 
             shadow-camera-left={-10} 
@@ -96,41 +100,47 @@ export default function MainScene(){
         />
 
 
-        <ambientLight intensity={ 0.9 } />
+            <ambientLight intensity={ 0.9 } />
+
+        <group ref={mainObject}>
 
 
-        {/* <mesh receiveShadow  scale={ 1 }>
-            <cylinderGeometry args={[12, 12, 30, 64]} />
-            <meshStandardMaterial color="#75975e" />
-        </mesh> */}
-
-        <RoundedBox
-            position-y={ -0.75 }
-            args={[22, 1.25, 20]} // Width, height, depth. Default is [1, 1, 1]
-            radius={0.35} // Radius of the rounded corners. Default is 0.05
-            smoothness={8} // The number of curve segments. Default is 4
-            creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
-            receiveShadow
-            >
-            <meshStandardMaterial color="#75975e" />
-        </RoundedBox>
-
-        <RoundedBox
-            position-y={ -13.5 }
-            //position-z={ 1 }
-            args={[26, 25, 26]} // Width, height, depth. Default is [1, 1, 1]
-            radius={0.35} // Radius of the rounded corners. Default is 0.05
-            smoothness={8} // The number of curve segments. Default is 4
-            creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
-            receiveShadow
-            >
-            <meshStandardMaterial color="#b0a27d" />
-        </RoundedBox>
 
 
-        <Building  />
+            {/* <mesh receiveShadow  scale={ 1 }>
+                <cylinderGeometry args={[12, 12, 30, 64]} />
+                <meshStandardMaterial color="#75975e" />
+            </mesh> */}
 
-        <HoverTargets />
+            <RoundedBox
+                position-y={ -0.75 }
+                args={[22, 1.25, 20]} // Width, height, depth. Default is [1, 1, 1]
+                radius={0.35} // Radius of the rounded corners. Default is 0.05
+                smoothness={8} // The number of curve segments. Default is 4
+                creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
+                receiveShadow
+                >
+                <meshStandardMaterial color="#75975e" />
+            </RoundedBox>
+
+            <RoundedBox
+                position-y={ -13.5 }
+                //position-z={ 1 }
+                args={[26, 25, 26]} // Width, height, depth. Default is [1, 1, 1]
+                radius={0.35} // Radius of the rounded corners. Default is 0.05
+                smoothness={8} // The number of curve segments. Default is 4
+                creaseAngle={0.4} // Smooth normals everywhere except faces that meet at an angle greater than the crease angle
+                receiveShadow
+                >
+                <meshStandardMaterial color="#b0a27d" />
+            </RoundedBox>
+
+
+            <Building  />
+
+            <HoverTargets />
+
+        </group>
 
     </>
 }
