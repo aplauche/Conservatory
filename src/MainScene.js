@@ -1,4 +1,4 @@
-import { BakeShadows, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, RoundedBox, SoftShadows, TransformControls } from '@react-three/drei'
+import { BakeShadows, Html, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, RoundedBox, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Suspense, useEffect, useRef } from 'react'
 import Placeholder from './components/Placeholder'
@@ -134,6 +134,36 @@ export default function MainScene(){
                 >
                 <meshStandardMaterial color="#b0a27d" />
             </RoundedBox>
+
+            <group position={[-12,6,5]} rotation-y={Math.PI / 2}>
+                <Html
+                    
+                    as='div' // Wrapping element (default: 'div')
+                    wrapperClass="main-title" // The className of the wrapping element (default: undefined)
+                    transform
+                    //occlude={true} // Can be true or a Ref<Object3D>[], true occludes the entire scene (default: undefined)
+                    center={false}
+                    
+                    style={{
+                    padding: "4px",
+                    //border: "2px solid white",
+                    //background: "transparent"
+                    //transform: "translate(50%, 0%)",
+                    opacity: 1,
+                    }}
+                >
+                    <div style={{
+                    //background: "#fff",
+                    padding: "16px 24px",
+                    fontSize: "60px",
+                    fontWeight: 700,
+                    color: "#fff",
+                
+                    }}>         
+                    <h3>The<br /> Conservatory</h3>
+                    </div>
+                </Html>
+            </group>
 
 
             <Building  />

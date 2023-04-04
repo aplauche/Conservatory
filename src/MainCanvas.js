@@ -20,7 +20,7 @@ export default function MainCanvas(){
         </Canvas>
         <Loader />
         <Drawer /> 
-        <MainOverlay />
+        {/* <MainOverlay /> */}
     </>
   )
 
