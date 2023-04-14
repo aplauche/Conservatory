@@ -1,6 +1,6 @@
-import { BakeShadows, Html, MeshTransmissionMaterial, OrbitControls, PerspectiveCamera, PivotControls, RoundedBox, SoftShadows, TransformControls } from '@react-three/drei'
+import { BakeShadows, CameraControls, Html, MeshTransmissionMaterial, OrbitControls, OrthographicCamera, PerspectiveCamera, PivotControls, PresentationControls, RoundedBox, SoftShadows, TransformControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import Placeholder from './components/Placeholder'
 import Building from './components/Building'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -8,26 +8,62 @@ import * as THREE from 'three'
 import HoverTargets from './components/HoverTargets'
 import useRoom from './stores/useRoom'
 import gsap from 'gsap'
+import { button, useControls, Leva } from 'leva'
+import  TWEEN  from '@tweenjs/tween.js'
 
 export default function MainScene(){
 
+    const {size} = useThree()
 
     const camera = useRef()
 
-    const controls = useRef()
-
     const mainObject = useRef()
 
-    const set = useThree((state) => state.set)
     const currentlySelected = useRoom(state => state.currentlySelected)
 
+    const optionsRot = useMemo(() => {
+        return {
+          x: { value: -1.6, min: -5, max: Math.PI * 2, step: 0.01 },
+          y: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+          z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+          visible: true,
+          color: { value: 'lime' },
+        }
+      }, [])
 
-    useEffect(() => {
-      set({ camera: camera.current })
-    //   gsap.from(mainObject.current.position, {
-    //     y: -20, duration: 1.5
-    //   })
-    }, [])
+    const camRot = useControls('Camera Rotation', optionsRot)
+
+    const optionsPos = useMemo(() => {
+        return {
+          x: { value: -5, min: -30, max: 50, step: 0.01 },
+          y: { value: 60, min: -30, max: 80, step: 0.01 },
+          z: { value: 0, min: -30, max: 50, step: 0.01 },
+          visible: true,
+          color: { value: 'lime' },
+        }
+      }, [])
+
+    const camPos = useControls('Camera Position', optionsPos)
+
+    const debugCamera = useControls(
+        {
+          "Get Camera Stats": button(() => {
+            console.log("pos: ", camera.current.position);
+            console.log("rot: ", camera.current.rotation);
+          })
+        },
+        [camera?.current?.position, camera?.current?.rotation]
+    );
+
+   
+
+    // useEffect(() => {
+       
+    //     gsap
+    //     // var lookAtTween = new TWEEN.Tween( camera.current.quaternion ).to( endRotation, 6000 ).start();
+
+    //     //camera.current.lookAt(new THREE.Vector3(-5,-1.6,0), 1000)
+    // },[])
 
     useEffect(() => {
         if(currentlySelected){
@@ -35,57 +71,131 @@ export default function MainScene(){
                 x: currentlySelected.cameraShift.x,
                 y: currentlySelected.cameraShift.y,
                 z: currentlySelected.cameraShift.z,
+                duration: 0.75
             });
-            gsap.to(controls.current.target, { 
-                x: 4,
-                y: 0,
-                z: -4,
-            });
-        } else {
-            gsap.to(camera.current.position, { 
-                x: 30,
-                y: 16,
-                z: 26
-            });
-            gsap.to(controls.current.target, { 
-                x: 0,
-                y: 0,
-                z: 0,
-            });
+            // gsap.to(controls.current.target, { 
+            //     x: 4,
+            //     y: 0,
+            //     z: -4,
+            // });
+        } else {   
+            const tl = gsap.timeline()
+            let targetRot =[0,0,0];
+            let targetPos =[0,0,0];
+
+            // backup original rotation
+            var startRotation = camera.current.rotation.clone();
+            var startPosition = camera.current.position.clone()
+
+            // final rotation (with lookAt)
+            camera.current.position.set(0,25,50)
+            camera.current.lookAt( new THREE.Vector3(-5,-1,0) );
+            targetRot = camera.current.rotation.clone();
+            targetPos = camera.current.position.clone();
+
+            // revert to original rotation
+            camera.current.rotation.copy( startRotation );
+            camera.current.position.copy( startPosition );
+
+
+            tl
+                .to(camera.current.position, { 
+                    x: 0,
+                    y: 25,
+                    z: 50,
+                    duration: 1
+                })
+                .to(camera.current.rotation, {
+                    x: targetRot.x,
+                    y: targetRot.y,
+                    z: targetRot.z,
+                    duration: 1
+                }, "-=100%")
+            // gsap.to(controls.current.target, { 
+            //     x: 0,
+            //     y: 0,
+            //     z: 0,
+            // });
         }
 
         return () => {
 
         }
     }, [currentlySelected, camera.current])
+
+
+
+
+
+
   
 
     return <>
 
         {/* <Perf position="top-left" /> */}
 
+        <Leva hidden={true} />
+
         <PerspectiveCamera 
             name="FBO Camera"
+            makeDefault
             ref={camera}
             fov={22}
             near={0.1}
             far={200}
-            position={[  30, 22, 30 ]}
+            // position={[  45, 22, 30 ]}
+            rotation={[camRot.x, camRot.y, camRot.z]}
+            position={[camPos.x, camPos.y, camPos.z]}
         />
 
+        {/* <OrthographicCamera 
+        left={- (size.width / 2) }
+        right={(size.width / 2) }
+        top={(size.height / 2) }
+        bottom={-(size.height / 2) }
+        makeDefault
+        ref={camera}
+        near={0.1}
+        far={200}
+        // zoom={30}
+        /> */}
 
-        <OrbitControls   
+
+
+
+        {/* <CameraControls   
             ref={controls}
-            maxDistance={60}
-            minDistance={60}
+            // maxDistance={30}
+            // minDistance={30}
+            dollySpeed={0}
+            minZoom={1}
+            maxZoom={1}
             maxPolarAngle={Math.PI / 2.05}
 
-        />
+        /> */}
 
           
 
         <SoftShadows />
-        <BakeShadows />
+  
+        <ambientLight intensity={ 0.9 } />
+
+        <PresentationControls
+            enabled={true} // the controls can be disabled by setting this to false
+            global={false} // Spin globally or by dragging the model
+            cursor={true} // Whether to toggle cursor style on drag
+            snap={true} // Snap-back to center (can also be a spring config)
+            speed={1} // Speed factor
+            zoom={1} // Zoom factor when half the polar-max is reached
+            rotation={[0, 0, 0]} // Default rotation
+            polar={[-Math.PI / 8, Math.PI / 2]} // Vertical limits
+            azimuth={[-Infinity, Infinity]} // Horizontal limits
+            config={{ mass: 1, tension: 170, friction: 50 }} // Spring config
+        > 
+
+        <group ref={mainObject} rotation-y={-Math.PI /4 - 0.2} >
+        {/* <BakeShadows /> */}
+
         <directionalLight 
             castShadow 
             shadow-camera-left={-10} 
@@ -98,13 +208,6 @@ export default function MainScene(){
             position={ [ 2, 6.5, -3 ] } 
             intensity={ 0.6 } 
         />
-
-
-            <ambientLight intensity={ 0.9 } />
-
-        <group ref={mainObject}>
-
-
 
 
             {/* <mesh receiveShadow  scale={ 1 }>
@@ -135,7 +238,7 @@ export default function MainScene(){
                 <meshStandardMaterial color="#b0a27d" />
             </RoundedBox>
 
-            <group position={[-12,6,5]} rotation-y={Math.PI / 2}>
+            {/* <group position={[-12,6,5]} rotation-y={Math.PI / 2}>
                 <Html
                     
                     as='div' // Wrapping element (default: 'div')
@@ -160,10 +263,10 @@ export default function MainScene(){
                     color: "#fff",
                 
                     }}>         
-                    <h3>The<br /> Conservatory</h3>
+                    <h3>Garfield Park<br />Conservatory</h3>
                     </div>
                 </Html>
-            </group>
+            </group> */}
 
 
             <Building  />
@@ -171,6 +274,7 @@ export default function MainScene(){
             <HoverTargets />
 
         </group>
+        </PresentationControls>
 
     </>
 }

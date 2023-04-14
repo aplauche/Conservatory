@@ -12,19 +12,21 @@ export default function Drawer( ){
       {currentlySelected !== null && (
         <>
         <div className="drawer">
-          <div className="name">
-            <h1>{currentlySelected.name}</h1>
-          </div>
-          <div className="image">
-            <img src={window.location.origin + currentlySelected.photo} />
-          </div>
-          <div className="info">
-            {currentlySelected.description}
-          </div>
-          <div className="cta">
-            <a href={'/room/1'} className="button">
-              Explore
-            </a>
+          <div className="drawer-inner">
+            <div className="name">
+              <h1>{currentlySelected.name}</h1>
+            </div>
+            <div className="image">
+              <img src={window.location.origin + currentlySelected.photo} />
+            </div>
+            <div className="info">
+              {currentlySelected.description}
+            </div>
+            <div className="cta">
+              <a href={'/room/1'} className="button">
+                Explore
+              </a>
+            </div>
           </div>
         </div>
         <div className="backdrop" onClick={closeRoomDrawer}></div>

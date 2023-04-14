@@ -4,9 +4,13 @@ import Drawer from './components/Drawer.js'
 import { Suspense } from "react"
 import { Loader } from "@react-three/drei"
 import MainOverlay from "./components/MainOverlay"
+import useRoom from "./stores/useRoom"
 
 
 export default function MainCanvas(){
+
+  const currentlySelected = useRoom((state) => state.currentlySelected)
+
 
   return (
     <>
@@ -20,7 +24,9 @@ export default function MainCanvas(){
         </Canvas>
         <Loader />
         <Drawer /> 
-        {/* <MainOverlay /> */}
+        {currentlySelected == null && (
+          <MainOverlay />
+        )}
     </>
   )
 
