@@ -23,7 +23,7 @@ export default function MainScene(){
 
     const optionsRot = useMemo(() => {
         return {
-          x: { value: -1.6, min: -5, max: Math.PI * 2, step: 0.01 },
+          x: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
           y: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
           z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
           visible: true,
@@ -35,7 +35,7 @@ export default function MainScene(){
 
     const optionsPos = useMemo(() => {
         return {
-          x: { value: -5, min: -30, max: 50, step: 0.01 },
+          x: { value: 0, min: -30, max: 50, step: 0.01 },
           y: { value: 60, min: -30, max: 80, step: 0.01 },
           z: { value: 0, min: -30, max: 50, step: 0.01 },
           visible: true,
@@ -55,30 +55,49 @@ export default function MainScene(){
         [camera?.current?.position, camera?.current?.rotation]
     );
 
-   
-
-    // useEffect(() => {
-       
-    //     gsap
-    //     // var lookAtTween = new TWEEN.Tween( camera.current.quaternion ).to( endRotation, 6000 ).start();
-
-    //     //camera.current.lookAt(new THREE.Vector3(-5,-1.6,0), 1000)
-    // },[])
-
     useEffect(() => {
         if(currentlySelected){
-            gsap.to(camera.current.position, { 
-                x: currentlySelected.cameraShift.x,
-                y: currentlySelected.cameraShift.y,
-                z: currentlySelected.cameraShift.z,
-                duration: 0.75
-            });
-            // gsap.to(controls.current.target, { 
-            //     x: 4,
-            //     y: 0,
-            //     z: -4,
-            // });
+            const tl = gsap.timeline()
+
+            let targetRot =[0,0,0];
+            let targetPos =[
+                currentlySelected.cameraShift.x,
+                currentlySelected.cameraShift.y,
+                currentlySelected.cameraShift.z
+            ];
+
+            // backup original rotation
+            var startRotation = camera.current.rotation.clone();
+            var startPosition = camera.current.position.clone()
+
+            // move to final position
+            camera.current.position.set(...targetPos)
+
+            // set final target rotation (with lookAt)
+            camera.current.lookAt( new THREE.Vector3(...targetRot) );
+            targetRot = camera.current.rotation.clone();
+
+            // revert to original rotation / position
+            camera.current.rotation.copy( startRotation );
+            camera.current.position.copy( startPosition );
+
+            // Do the animation
+            tl
+                .to(camera.current.position, { 
+                    x: currentlySelected.cameraShift.x,
+                    y: currentlySelected.cameraShift.y,
+                    z: currentlySelected.cameraShift.z,
+                    duration: 1
+                })
+                .to(camera.current.rotation, {
+                    x: targetRot.x,
+                    y: targetRot.y,
+                    z: targetRot.z,
+                    duration: 1
+                }, "-=100%")
+
         } else {   
+
             const tl = gsap.timeline()
             let targetRot =[0,0,0];
             let targetPos =[0,0,0];
@@ -89,7 +108,7 @@ export default function MainScene(){
 
             // final rotation (with lookAt)
             camera.current.position.set(0,25,50)
-            camera.current.lookAt( new THREE.Vector3(-5,-1,0) );
+            camera.current.lookAt( new THREE.Vector3(0,0,0) );
             targetRot = camera.current.rotation.clone();
             targetPos = camera.current.position.clone();
 
@@ -101,8 +120,8 @@ export default function MainScene(){
             tl
                 .to(camera.current.position, { 
                     x: 0,
-                    y: 25,
-                    z: 50,
+                    y: 30,
+                    z: 60,
                     duration: 1
                 })
                 .to(camera.current.rotation, {
@@ -111,11 +130,7 @@ export default function MainScene(){
                     z: targetRot.z,
                     duration: 1
                 }, "-=100%")
-            // gsap.to(controls.current.target, { 
-            //     x: 0,
-            //     y: 0,
-            //     z: 0,
-            // });
+
         }
 
         return () => {
@@ -237,37 +252,6 @@ export default function MainScene(){
                 >
                 <meshStandardMaterial color="#b0a27d" />
             </RoundedBox>
-
-            {/* <group position={[-12,6,5]} rotation-y={Math.PI / 2}>
-                <Html
-                    
-                    as='div' // Wrapping element (default: 'div')
-                    wrapperClass="main-title" // The className of the wrapping element (default: undefined)
-                    transform
-                    //occlude={true} // Can be true or a Ref<Object3D>[], true occludes the entire scene (default: undefined)
-                    center={false}
-                    
-                    style={{
-                    padding: "4px",
-                    //border: "2px solid white",
-                    //background: "transparent"
-                    //transform: "translate(50%, 0%)",
-                    opacity: 1,
-                    }}
-                >
-                    <div style={{
-                    //background: "#fff",
-                    padding: "16px 24px",
-                    fontSize: "60px",
-                    fontWeight: 700,
-                    color: "#fff",
-                
-                    }}>         
-                    <h3>Garfield Park<br />Conservatory</h3>
-                    </div>
-                </Html>
-            </group> */}
-
 
             <Building  />
 

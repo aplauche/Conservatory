@@ -14,19 +14,21 @@ export default function MainCanvas(){
 
   return (
     <>
-        <Canvas shadows>
-              
-            <Suspense fallback={null}>
-              <MainScene />
-            </Suspense>
-           
-   
-        </Canvas>
+      <div className={`main-scene-wrapper ${currentlySelected != null ? "drawer-open" : ""}`}>
         <Loader />
+        <div className={`canvas-wrapper `}>
+          <Canvas shadows>
+                
+              <Suspense fallback={null}>
+                <MainScene />
+              </Suspense>
+            
+    
+          </Canvas>
+        </div>
         <Drawer /> 
-        {currentlySelected == null && (
-          <MainOverlay />
-        )}
+        <MainOverlay />
+      </div>
     </>
   )
 

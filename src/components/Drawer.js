@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import useRoom from "../stores/useRoom"
 
 export default function Drawer( ){
@@ -7,20 +8,29 @@ export default function Drawer( ){
   const exitPanoScene = useRoom((state) => state.exitPanoScene)
   const loadPanoScene = useRoom((state) => state.loadPanoScene)
 
+
+  // use an additional layer to store the last selected room in order to not have flash of no data
+  const [cachedSelected, setCachedSelected] = useState(null);
+
+  useEffect(() => {
+    if(currentlySelected != null){
+      setCachedSelected({...currentlySelected})
+    }
+  }, [currentlySelected])
+
   return (
     <> 
-      {currentlySelected !== null && (
-        <>
-        <div className="drawer">
+
+        <div className={`drawer ${currentlySelected !== null && "drawer-open"}`}>
           <div className="drawer-inner">
             <div className="name">
-              <h1>{currentlySelected.name}</h1>
+              <h1>{cachedSelected?.name}</h1>
             </div>
             <div className="image">
-              <img src={window.location.origin + currentlySelected.photo} />
+              <img src={window.location.origin + cachedSelected?.photo} />
             </div>
             <div className="info">
-              {currentlySelected.description}
+              {cachedSelected?.description}
             </div>
             <div className="cta">
               <a href={'/room/1'} className="button">
@@ -29,9 +39,10 @@ export default function Drawer( ){
             </div>
           </div>
         </div>
-        <div className="backdrop" onClick={closeRoomDrawer}></div>
-        </>  
-      )}
+        {currentlySelected !== null && (          
+          <div className="backdrop" onClick={closeRoomDrawer}></div>
+        )}
+
     </>
   )
 }
