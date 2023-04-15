@@ -1,14 +1,17 @@
 :root {
     --lightGreen: #99b580;
-    --textColor: #555;
+    --textDark: #222;
+    --textMedium: #444;
+    --textLight: #777;
+    --light: #e5e5e5;
     --drawerWidth: 500px;
+
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 @font-face {
     font-family: 'Montreal';
@@ -93,7 +96,6 @@ body,
 }
 
 .header-intro {
-    color: #555;
     line-height: 1.6;
 }
 
@@ -118,8 +120,8 @@ body,
 }
 
 .drawer-inner {
-    color: var(--textColor);
-    padding: 50px 32px;
+    color: var(--textDark);
+    padding: 0px 20px;
     width: 100%;
     /* background: rgba(255,255,255,0.1);
     background: rgba(0,0,0,0.1);
@@ -130,17 +132,10 @@ body,
     border-radius: 12px;
 }
 
-.drawer .name {
-    padding-bottom: 1rem;
-    margin-bottom: 32px;
-    //border-bottom: 1px solid var(--lightGreen);
-    color: var(--lightGreen);
-    font-weight: 700;
-}
 
 .drawer .image {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     position: relative;
     //border: 4px solid var(--lightGreen);
 }
@@ -155,13 +150,7 @@ body,
 }
 
 
-.drawer .info {
-    padding: 32px 0px;
-    margin: 32px 0;
-    border-top: 1px solid var(--lightGreen);
-    border-bottom: 1px solid var(--lightGreen);
-    line-height: 1.6;
-}
+
 
 .drawer .button {
 
@@ -192,12 +181,13 @@ body,
     position: fixed;
     top: 0;
     height: 100vh;
-    /* background: rgba(255,255,255,0.5);
-    backdrop-filter: blur(32px); */
     width: 100%;
     right: 0;
     z-index: 2;
 }
+
+
+
 
 .panoHeader {
     position: fixed;
