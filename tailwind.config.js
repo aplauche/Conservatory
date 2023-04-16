@@ -10,7 +10,8 @@ module.exports = {
       'medium-text': "#444",
       'dark-text': "#222",
       'light-text': "#777",
-      'white': "#fff"
+      'white': "#fff",
+      'transparent': "rgba(0,0,0,0)"
     },
     extend: {},
   },

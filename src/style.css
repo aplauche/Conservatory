@@ -13,6 +13,13 @@
 @tailwind utilities;
 
 
+@layer components {
+    .btn-primary {
+        @apply inline-block bg-transparent text-light-green border-2 border-light-green py-3 px-8 tracking-[2px] uppercase cursor-pointer no-underline font-bold text-center hover:bg-light-green hover:text-white;
+    }
+}
+
+
 @font-face {
     font-family: 'Montreal';
     src: url('../public/fonts/PPNeueMontreal-Regular.woff2') format('woff2'),

@@ -242,8 +242,9 @@ export default function MainScene(){
             </RoundedBox>
 
             <RoundedBox
+                // position-y={ -2.5 }
+                // args={[26, 3, 26]} // Width, height, depth. Default is [1, 1, 1]
                 position-y={ -13.5 }
-                //position-z={ 1 }
                 args={[26, 25, 26]} // Width, height, depth. Default is [1, 1, 1]
                 radius={0.35} // Radius of the rounded corners. Default is 0.05
                 smoothness={8} // The number of curve segments. Default is 4
