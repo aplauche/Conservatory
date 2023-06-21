@@ -1,9 +1,21 @@
-import { BakeShadows, Environment, OrbitControls, PerspectiveCamera, SoftShadows } from '@react-three/drei'
-import { useThree } from '@react-three/fiber'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
+import { useLoader, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
+import * as THREE from 'three'
+import useRoom from './stores/useRoom'
+import roomsData from './stores/roomsData'
+
 
 export default function PanoScene(){
 
+    const activePano = useRoom(state => state.panoScene)
+
+    // const {slug} = useParams()
+
+    // const activePano = roomsData.find(item => item.slug == slug)
+
+    const texture = useLoader(THREE.TextureLoader, `${window.location.origin}${activePano.pano}`)
 
     const controls = useRef()
 
@@ -16,18 +28,26 @@ export default function PanoScene(){
           rotateSpeed={0.2}
           ref={controls}
           makeDefault
+          minDistance={1}
+          maxDistance={40}
       />
 
+        <PerspectiveCamera 
+            makeDefault
+            fov={60}
+            near={0.1}
+            far={800}
+            position={[40,40,40]}
+        />
 
-      <Environment
-        background={true} // can be true, false or "only" (which only sets the background) (default: false)
-        blur={0} // blur factor between 0 and 1 (default: 0, only works with three 0.146 and up)
-        // files={`${window.location.origin}/images/sample-pano.jpg`}
 
-        preset={'sunset'}
-        scene={undefined} // adds the ability to pass a custom THREE.Scene, can also be a ref
-        encoding={undefined} // adds the ability to pass a custom THREE.TextureEncoding (default: THREE.sRGBEncoding for an array of files and THREE.LinearEncoding for a single texture)
-      />
+      <mesh>
+        <sphereGeometry args={[100, 60, 40]}   />
+        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+      </mesh>
+
+
+ 
 
     </>
 }

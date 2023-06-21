@@ -7,10 +7,13 @@ import MainOverlay from "./components/MainOverlay"
 import useRoom from "./stores/useRoom"
 
 
-export default function MainCanvas(){
+export default function MainPage(){
 
   const currentlySelected = useRoom((state) => state.currentlySelected)
 
+  const exitPanoScene = useRoom((state) => state.exitPanoScene)
+
+  exitPanoScene()
 
   return (
     <>
