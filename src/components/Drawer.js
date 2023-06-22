@@ -21,7 +21,7 @@ export default function Drawer( ){
         <div className={`drawer ${currentlySelected !== null && "drawer-open"}`}>
           <div className="drawer-inner">
             <div className="name py-4 my-4 flex items-center">
-              <div className="bg-light-green text-white h-[60px] w-[60px] rounded-full flex items-center justify-center font-black">01</div>
+              <div className="bg-light-green text-white h-[50px] w-[50px] rounded-full flex items-center justify-center font-black"></div>
               <h1 className="ml-4 text-4xl font-bold">{cachedSelected?.name}</h1>
             </div>
             {cachedSelected?.photo && (
@@ -29,8 +29,7 @@ export default function Drawer( ){
                 <img src={window.location.origin + cachedSelected?.photo} />
               </div>
             )}
-            <div className="info py-8">
-              {cachedSelected?.description}
+            <div dangerouslySetInnerHTML={{__html:cachedSelected?.description }}  className="info py-8">
             </div>
             <div className="grid grid-cols-2 gap-2 mb-6">
               {cachedSelected?.stats && cachedSelected?.stats.map(stat => (

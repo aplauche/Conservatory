@@ -1,19 +1,14 @@
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
-import { useLoader, useThree } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLoader } from '@react-three/fiber'
+import { useRef } from 'react'
 import * as THREE from 'three'
 import useRoom from './stores/useRoom'
-import roomsData from './stores/roomsData'
+
 
 
 export default function PanoScene(){
 
     const activePano = useRoom(state => state.panoScene)
-
-    // const {slug} = useParams()
-
-    // const activePano = roomsData.find(item => item.slug == slug)
 
     const texture = useLoader(THREE.TextureLoader, `${window.location.origin}${activePano.pano}`)
 
@@ -37,7 +32,7 @@ export default function PanoScene(){
             fov={60}
             near={0.1}
             far={800}
-            position={[40,40,40]}
+            position={[40,0,40]}
         />
 
 
