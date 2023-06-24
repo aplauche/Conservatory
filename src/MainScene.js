@@ -8,93 +8,112 @@ import * as THREE from 'three'
 import HoverTargets from './components/HoverTargets'
 import useRoom from './stores/useRoom'
 import gsap from 'gsap'
-import { button, useControls, Leva } from 'leva'
+import { useControls, button, Leva  } from 'leva'
 import  TWEEN  from '@tweenjs/tween.js'
 
 export default function MainScene(){
-
-    const {size} = useThree()
 
     const camera = useRef()
 
     const mainObject = useRef()
 
+    const cameraStartPosition = {x: 0, y: 60, z:0}
+    const cameraDefault = {x: 0, y:30, z: 60}
+
+    const mainObjectDefaultRotation = {
+        x: 0,
+        y: -Math.PI / 4 - 0.2,
+        z: 0
+    }
+
     const currentlySelected = useRoom(state => state.currentlySelected)
 
-    const optionsRot = useMemo(() => {
-        return {
-          x: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-          y: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-          z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-          visible: true,
-          color: { value: 'lime' },
-        }
-      }, [])
+    // const optionsRot = useMemo(() => {
+    //     return {
+    //       x: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+    //       y: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+    //       z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+    //       visible: true,
+    //       color: { value: 'lime' },
+    //     }
+    //   }, [])
 
-    const camRot = useControls('Camera Rotation', optionsRot)
+    // const camRot = useControls('Camera Rotation', optionsRot)
 
-    const optionsPos = useMemo(() => {
-        return {
-          x: { value: 0, min: -30, max: 50, step: 0.01 },
-          y: { value: 60, min: -30, max: 80, step: 0.01 },
-          z: { value: 0, min: -30, max: 50, step: 0.01 },
-          visible: true,
-          color: { value: 'lime' },
-        }
-      }, [])
+    // const optionsPos = useMemo(() => {
+    //     return {
+    //       x: { value: 0, min: -30, max: 50, step: 0.01 },
+    //       y: { value: 60, min: -30, max: 80, step: 0.01 },
+    //       z: { value: 0, min: -30, max: 50, step: 0.01 },
+    //       visible: true,
+    //       color: { value: 'lime' },
+    //     }
+    //   }, [])
 
-    const camPos = useControls('Camera Position', optionsPos)
+    // const camPos = useControls('Camera Position', optionsPos)
 
-    const debugCamera = useControls(
-        {
-          "Get Camera Stats": button(() => {
-            console.log("pos: ", camera.current.position);
-            console.log("rot: ", camera.current.rotation);
-          })
-        },
-        [camera?.current?.position, camera?.current?.rotation]
-    );
+    // const debugCamera = useControls(
+    //     {
+    //       "Get Camera Stats": button(() => {
+    //         console.log("pos: ", camera.current.position);
+    //         console.log("rot: ", camera.current.rotation);        
+    //       })
+    //     },
+    //     [camera?.current?.position, camera?.current?.rotation]
+    // );
 
     useEffect(() => {
         if(currentlySelected){
             const tl = gsap.timeline()
 
-            let targetRot =[0,0,0];
-            let targetPos =[
-                currentlySelected.cameraShift.x,
-                currentlySelected.cameraShift.y,
-                currentlySelected.cameraShift.z
-            ];
+            // let targetRot =[0,0,0];
+            // let targetPos =[
+            //     currentlySelected.cameraShift.x,
+            //     currentlySelected.cameraShift.y,
+            //     currentlySelected.cameraShift.z
+            // ];
 
-            // backup original rotation
-            var startRotation = camera.current.rotation.clone();
-            var startPosition = camera.current.position.clone()
+            // // backup original rotation
+            // var startRotation = camera.current.rotation.clone();
+            // var startPosition = camera.current.position.clone()
 
-            // move to final position
-            camera.current.position.set(...targetPos)
+            // // move to final position
+            // camera.current.position.set(...targetPos)
 
-            // set final target rotation (with lookAt)
-            camera.current.lookAt( new THREE.Vector3(...targetRot) );
-            targetRot = camera.current.rotation.clone();
+            // // set final target rotation (with lookAt)
+            // camera.current.lookAt( new THREE.Vector3(...targetRot) );
+            // targetRot = camera.current.rotation.clone();
 
-            // revert to original rotation / position
-            camera.current.rotation.copy( startRotation );
-            camera.current.position.copy( startPosition );
+            // // revert to original rotation / position
+            // camera.current.rotation.copy( startRotation );
+            // camera.current.position.copy( startPosition );
 
             // Do the animation
             tl
                 .to(camera.current.position, { 
-                    x: currentlySelected.cameraShift.x,
-                    y: currentlySelected.cameraShift.y,
-                    z: currentlySelected.cameraShift.z,
+                    x: currentlySelected.focusPosition.x,
+                    y: currentlySelected.focusPosition.y,
+                    z: currentlySelected.focusPosition.z,
                     duration: 1
                 })
-                .to(camera.current.rotation, {
-                    x: targetRot.x,
-                    y: targetRot.y,
-                    z: targetRot.z,
+                .to(mainObject.current.rotation, {
+                    x: currentlySelected.focusRotation.x,
+                    y: currentlySelected.focusRotation.y,
+                    z: currentlySelected.focusRotation.z,
                     duration: 1
                 }, "-=100%")
+                // .to(camera.current.position, { 
+                //     x: currentlySelected.cameraShift.x,
+                //     y: currentlySelected.cameraShift.y,
+                //     z: currentlySelected.cameraShift.z,
+                //     duration: 1
+                // })
+                // .to(camera.current.rotation, {
+                //     x: targetRot.x,
+                //     y: targetRot.y,
+                //     z: targetRot.z,
+                //     duration: 1
+                // }, "-=100%")
 
         } else {   
 
@@ -106,9 +125,9 @@ export default function MainScene(){
             var startRotation = camera.current.rotation.clone();
             var startPosition = camera.current.position.clone()
 
-            // final rotation (with lookAt)
-            camera.current.position.set(0,25,50)
-            camera.current.lookAt( new THREE.Vector3(0,0,0) );
+            // get final rotation back to default (with lookAt)
+            camera.current.position.set(cameraDefault.x, cameraDefault.y, cameraDefault.z)
+            camera.current.lookAt( new THREE.Vector3(0,0,0));
             targetRot = camera.current.rotation.clone();
             targetPos = camera.current.position.clone();
 
@@ -116,7 +135,7 @@ export default function MainScene(){
             camera.current.rotation.copy( startRotation );
             camera.current.position.copy( startPosition );
 
-
+            // Run the animation
             tl
                 .to(camera.current.position, { 
                     x: 0,
@@ -124,6 +143,12 @@ export default function MainScene(){
                     z: 60,
                     duration: 1
                 })
+                .to(mainObject.current.rotation, {
+                    x: mainObjectDefaultRotation.x,
+                    y: mainObjectDefaultRotation.y,
+                    z: mainObjectDefaultRotation.z,
+                    duration: 1
+                }, "-=100%")
                 .to(camera.current.rotation, {
                     x: targetRot.x,
                     y: targetRot.y,
@@ -136,6 +161,7 @@ export default function MainScene(){
         return () => {
 
         }
+
     }, [currentlySelected, camera.current])
 
 
@@ -149,7 +175,7 @@ export default function MainScene(){
 
         {/* <Perf position="top-left" /> */}
 
-        <Leva hidden={true} />
+        {/* <Leva hidden={true} /> */}
 
         <PerspectiveCamera 
             name="FBO Camera"
@@ -159,24 +185,9 @@ export default function MainScene(){
             near={0.1}
             far={200}
             // position={[  45, 22, 30 ]}
-            rotation={[camRot.x, camRot.y, camRot.z]}
-            position={[camPos.x, camPos.y, camPos.z]}
+            rotation={[0, 0, 0]}
+            position={[cameraStartPosition.x, cameraStartPosition.y, cameraStartPosition.z]}
         />
-
-        {/* <OrthographicCamera 
-        left={- (size.width / 2) }
-        right={(size.width / 2) }
-        top={(size.height / 2) }
-        bottom={-(size.height / 2) }
-        makeDefault
-        ref={camera}
-        near={0.1}
-        far={200}
-        // zoom={30}
-        /> */}
-
-
-
 
         {/* <CameraControls   
             ref={controls}
@@ -188,8 +199,6 @@ export default function MainScene(){
             maxPolarAngle={Math.PI / 2.05}
 
         /> */}
-
-          
 
         <SoftShadows />
   
@@ -225,11 +234,6 @@ export default function MainScene(){
         />
 
 
-            {/* <mesh receiveShadow  scale={ 1 }>
-                <cylinderGeometry args={[12, 12, 30, 64]} />
-                <meshStandardMaterial color="#75975e" />
-            </mesh> */}
-
             <RoundedBox
                 position-y={ -0.75 }
                 args={[22, 1.25, 20]} // Width, height, depth. Default is [1, 1, 1]
@@ -242,8 +246,6 @@ export default function MainScene(){
             </RoundedBox>
 
             <RoundedBox
-                // position-y={ -2.5 }
-                // args={[26, 3, 26]} // Width, height, depth. Default is [1, 1, 1]
                 position-y={ -13.5 }
                 args={[26, 25, 26]} // Width, height, depth. Default is [1, 1, 1]
                 radius={0.35} // Radius of the rounded corners. Default is 0.05
