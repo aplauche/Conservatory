@@ -19,6 +19,14 @@ export default [
       {
         title: "Humidity",
         stat: "90%"
+      },
+      {
+        title: "Square Feet",
+        stat: "5K+"
+      },
+      {
+        title: "Palm Species",
+        stat: "70+"
       }
     ]
 
@@ -52,7 +60,7 @@ export default [
     targetScale: {x: 5.5, y: 4.5, z: 2.6},
     targetPos: {x: -1, y: 0, z: -3.3},
     description: "Lorem Ipsum",
-    photo: "",
+    pano: "/images/panos/show-room.jpg",
     cameraShift: {x:34, y:14, z: 12},
     focusRotation: {x:0, y: -2.75, z: 0},
     focusPosition: {x:0, y: 22, z: 45},
@@ -63,7 +71,7 @@ export default [
     targetScale: {x: 5.5, y: 4.5, z: 2.6},
     targetPos: {x: -1, y: 0, z:3.45},
     description: "Four themed botanical environments – water, air, sunlight, and sugar – help visitors discover how right now, inside every leaf, plants are capturing sunlight and using it to change small parts of air and water into sugar – the energy that sustains life on Earth.",
-    photo: "",
+    pano: "/images/panos/sugar-from-the-sun.jpg",
     cameraShift: {x:-30, y:25, z: -10},
     focusRotation: {x:0, y: 0.6, z: 0},
     focusPosition: {x:0, y: 22, z: 45},
@@ -74,7 +82,7 @@ export default [
     targetScale: {x: 2.5, y: 4.5, z: 5},
     targetPos: {x: -5.5, y: 0, z:0},
     description: "The Desert House holds one of the region’s most varied collections of cacti and succulents. These plants owe their popularity to their spectacular and unique forms, the promise of brilliant, short-lived flowers and their ability to withstand harsh, dry conditions. The size of the plants in this room varies from the tiny living stone plant to the large century plants.",
-    photo: "",
+    pano: "/images/panos/desert-room.jpg",
     cameraShift: {x:0, y:25, z: -40},
     focusRotation: {x:0, y: Math.PI / 1.5, z: 0},
     focusPosition: {x:0, y: 22, z: 45},
