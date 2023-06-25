@@ -9,6 +9,7 @@ import CustomLoader from "./components/CustomLoader"
 import Instructions from "./components/Instructions"
 
 
+
 export default function MainPage(){
 
 
@@ -16,7 +17,6 @@ export default function MainPage(){
   const currentlySelected = useRoom((state) => state.currentlySelected)
 
   const exitPanoScene = useRoom((state) => state.exitPanoScene)
-
 
 
   exitPanoScene()
@@ -35,10 +35,16 @@ export default function MainPage(){
     
           </Canvas>
 
-          <Instructions position="bottom">
+          <Instructions key="main" isVisible={!currentlySelected} position="bottom">
             Click and drag to rotate
           </Instructions>
-          
+
+          <Instructions key="detail" isVisible={currentlySelected != null} position="top">
+            Click to return to main view
+          </Instructions>
+
+
+
         </div>
         <Drawer /> 
         <MainOverlay />

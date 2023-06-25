@@ -1,5 +1,6 @@
 import useRoom from "../stores/useRoom"
 import { HiChevronLeft } from "react-icons/hi";
+import Instructions from "./Instructions";
 
 export default function PanoOverlay(){
 
@@ -7,15 +8,17 @@ export default function PanoOverlay(){
   
 
   return (
-    <div className="panoHeader flex py-4 px-4 gap-4 bg-white rounded-lg shadow-lg">
-      <div >
-        <a className="w-[32px] h-[32px] rounded-full flex items-center justify-center bg-light-green" href="/">
-          <HiChevronLeft className="text-xl text-white"/>
-        </a>
-      </div>
-      <div className="px-16">
-        <h1 className="font-bold text-xl text-light-green">{activePano.name}</h1>
-      </div>
-    </div>
+    <>
+      <a href="/" className="panoHeader flex items-center py-3 px-3 gap-4 bg-white rounded-full shadow-lg">
+        <div >
+          <div className="w-[32px] h-[32px] rounded-full flex items-center justify-center" >
+            <HiChevronLeft className="text-3xl"/>
+          </div>
+        </div>
+      </a>
+      <Instructions key="pano" position="top">
+        Click and drag to explore
+      </Instructions>
+    </>
   )
 }

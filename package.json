@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@react-three/drei": "^9.32.3",
-    "@react-three/fiber": "8.11.5",
+    "@react-three/fiber": "^8.11.5",
     "@tweenjs/tween.js": "^19.0.0",
     "framer-motion": "^10.12.17",
     "gsap": "^3.11.4",
