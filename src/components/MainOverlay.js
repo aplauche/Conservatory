@@ -21,7 +21,7 @@ export default function MainOverlay(){
             <p>Often referred to as “landscape art under glass,” the Garfield Park Conservatory occupies two acres of public greenhouse space and 10 acres of outdoor gardens. </p>
           </div>
         </div>
-        <a href="https://garfieldconservatory.org/" target="_blank" className="btn-primary mt-12">Visit Main Site</a>
+        {/* <a href="https://garfieldconservatory.org/" target="_blank" className="btn-primary mt-12">Visit Main Site</a> */}
       </div>
     </header>
     
