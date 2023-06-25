@@ -56,6 +56,13 @@ export default function Drawer( ){
                 </a>
               </div>
             )}
+            {cachedSelected?.slug == 'info' && (
+              <div className="cta">
+                <a target="_blank" href={"https://garfieldconservatory.org/visit/"} className="button btn-primary w-full my-4">
+                  Plan a visit
+                </a>
+              </div>
+            )}
           </div>
         </div>
         {currentlySelected !== null && (          
