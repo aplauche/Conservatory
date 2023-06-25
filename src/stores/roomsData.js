@@ -33,7 +33,7 @@ export default [
     photo: "/images/fern-room.jpg",
     cameraShift: {x:34, y:14, z: 12},
     focusRotation: {x:0.8, y: -1, z: 0},
-    focusPosition: {x:0, y: 30, z: 55},
+    focusPosition: {x:0, y: 20, z: 40},
     pano: "/images/panos/fern-room.jpg",
     stats: [
       {

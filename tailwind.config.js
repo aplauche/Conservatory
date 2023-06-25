@@ -12,7 +12,8 @@ module.exports = {
       'dark-text': "#222",
       'light-text': "#777",
       'white': "#fff",
-      'transparent': "rgba(0,0,0,0)"
+      'transparent': "rgba(0,0,0,0)",
+      'black': "#000"
     },
     extend: {},
   },

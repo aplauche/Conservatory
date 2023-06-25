@@ -2,6 +2,7 @@ import { Loader } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import { Suspense } from "react"
 import { useParams } from "react-router-dom"
+import CustomLoader from "./components/CustomLoader.js"
 import PanoOverlay from "./components/PanoOverlay.js"
 import PanoScene from "./PanoScene"
 import roomsData from "./stores/roomsData.js"
@@ -28,7 +29,7 @@ export default function PanoPage(){
         
    
         </Canvas>
-        <Loader />
+        <CustomLoader />
         <PanoOverlay /> 
     </>
   )

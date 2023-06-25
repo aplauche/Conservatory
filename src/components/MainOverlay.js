@@ -13,7 +13,8 @@ export default function MainOverlay(){
           </div>
           <div className="header-intro pt-12">
             <span className="bg-light-green rounded-full px-4 py-2 text-white inline-block mb-12">Garfield Park Conservatory</span>
-            <h1 className="text-6xl font-bold mb-6">Explore The<br />Conservatory.</h1>
+            <p className="text-3xl mb-0 font-bold text-black">Explore the</p>
+            <h1 className="text-6xl font-bold mb-12 text-black">Conservatory.</h1>
             <p className="mb-6">
             The Garfield Park Conservatory in Chicago, Illinois is one of the largest and most stunning conservatories in the nation. 
             </p>
