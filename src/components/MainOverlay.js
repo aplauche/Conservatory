@@ -6,7 +6,7 @@ export default function MainOverlay(){
   return (
     <>
     <header className="site-header">
-      <div className="header-container text-medium-text ">
+      <div className="header-container text-medium-text flex flex-col justify-between">
         <div>
           <div className="mt-8 w-[90px]">
             <img src="/images/gc-logo.svg" alt="" />
@@ -19,6 +19,7 @@ export default function MainOverlay(){
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra lorem a lacus porta suscipit. Morbi dolor dolor, lobortis vel urna vel, semper mollis est. Nam dictum vel quam vel convallis. Pellentesque eu metus tincidunt, condimentum velit at, efficitur mauris. Morbi lectus nulla, efficitur a mattis at, vulputate ut est.            </p>
           </div>
         </div>
+        <p className="font-bold text-sm text-light-text mb-3">Built with React Three Fiber</p>
         {/* <a href="https://garfieldconservatory.org/" target="_blank" className="btn-primary mt-12">Visit Main Site</a> */}
       </div>
     </header>
