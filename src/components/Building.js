@@ -5,8 +5,6 @@ export default function Building() {
 
   const building = useGLTF('./building-no-ground.glb')
 
-  console.log(building)
-
   building.scene.children.forEach(child => {
     child.castShadow = true
 

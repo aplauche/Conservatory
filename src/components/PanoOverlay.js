@@ -4,8 +4,6 @@ import Instructions from "./Instructions";
 
 export default function PanoOverlay(){
 
-  const activePano = useRoom(state => state.panoScene)
-  
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber"
 import MainScene from "./MainScene"
 import Drawer from './components/Drawer.js'
-import { Suspense } from "react"
+import { Suspense, useEffect, useLayoutEffect } from "react"
 import { Loader, useProgress } from "@react-three/drei"
 import MainOverlay from "./components/MainOverlay"
 import useRoom from "./stores/useRoom"
@@ -18,8 +18,10 @@ export default function MainPage(){
 
   const exitPanoScene = useRoom((state) => state.exitPanoScene)
 
+  useLayoutEffect(() => {
+    exitPanoScene()
+  }, [])
 
-  exitPanoScene()
 
   return (
     <>
@@ -36,15 +38,13 @@ export default function MainPage(){
     
           </Canvas>
 
-          <Instructions key="main" isVisible={!currentlySelected} position="bottom">
+          <Instructions keyVal="main" isVisible={!currentlySelected} position="bottom">
             Click and drag to rotate
           </Instructions>
 
-          <Instructions key="detail" isVisible={currentlySelected != null} position="top">
+          <Instructions keyVal="detail" isVisible={currentlySelected != null} position="top">
             Click to return to main view
           </Instructions>
-
-
 
         </div>
         <Drawer /> 

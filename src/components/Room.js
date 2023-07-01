@@ -114,10 +114,6 @@ export default function Room({
 
         <group position={[0, 7.5, 0]} rotation-y={Math.PI / 2} >
 
-          {/* <Text color="#777" anchorX="left" anchorY="middle">
-            {label}
-          </Text> */}
-
           {/* target line */}
           <group position={[0,-1.75,0]}>
             <mesh position={[-0.4,-2.5,0]} scale-y={0} ref={textLine}>
@@ -126,25 +122,16 @@ export default function Room({
             </mesh>
           </group>
 
-          {/* Text bg */}
-          {/* <mesh position={[-0.4,-2,0]}>
-            <planeGeometry args={[0.1, 5]} />
-            <meshBasicMaterial color="#ffffffff" side={THREE.DoubleSide}/>
-          </mesh> */}
-
           <Html
             ref={text}
             as='div' // Wrapping element (default: 'div')
             wrapperClass="room-label" // The className of the wrapping element (default: undefined)
             transform
-            //distanceFactor={10} // If set (default: undefined), children will be scaled by this factor, and also by distance to a PerspectiveCamera / zoom by a OrthographicCamera.
-            //occlude={true} // Can be true or a Ref<Object3D>[], true occludes the entire scene (default: undefined)
             center={false}
             
             style={{
               padding: "4px",
               border: "2px solid white",
-              //background: "transparent"
               transform: "translate(50%, 0%)",
               opacity: 0,
             }}
