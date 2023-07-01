@@ -22,7 +22,6 @@ export default function Drawer( ){
         <div className={`drawer ${currentlySelected !== null && "drawer-open"}`}>
           <div className="drawer-inner">
             <div className="name py-4 my-4 flex items-center">
-              {/* <div className="bg-light-green text-white h-[50px] w-[50px] rounded-full flex items-center justify-center font-black"></div> */}
               <img className="w-[60px] h-[60px] object-contain" src="/images/gc-logo.svg" alt="" />
 
               <h1 className="ml-4 text-4xl font-bold mt-2">{cachedSelected?.name}</h1>
