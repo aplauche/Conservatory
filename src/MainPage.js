@@ -25,6 +25,7 @@ export default function MainPage(){
     <>
       <div className={`main-scene-wrapper ${currentlySelected != null ? "drawer-open" : ""}`}>
         <CustomLoader />
+        <MainOverlay />
         <div className={`canvas-wrapper `}>
           <Canvas shadows>
        
@@ -47,7 +48,7 @@ export default function MainPage(){
 
         </div>
         <Drawer /> 
-        <MainOverlay />
+
       </div>
     </>
   )
