@@ -28,15 +28,10 @@ export default function Room({
 
   const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
 
-
   const tl = useRef();
-
-
 
   useLayoutEffect(() => {
     const ctx = gsap.context((self) => {
-      console.log(self)
-      // const boxes = self.selector('.box');
       tl.current = gsap
         .timeline({paused: true})
           .to(glass.current?.position, { 
@@ -65,9 +60,6 @@ export default function Room({
       //console.log(ctx)
       tl.current.play()
       //setAnimating(true)
-
-
-
 
   }
   const handleMouseOut = () => {
