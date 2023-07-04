@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Billboard, Center, Html, MeshTransmissionMaterial, RoundedBox, Text, Text3D } from "@react-three/drei";
 
@@ -21,81 +21,59 @@ export default function Room({
   const text = useRef()
   const textBg = useRef()
   const textLine = useRef()
+  const group = useRef()
 
   const targetMaterial = new THREE.MeshBasicMaterial({color: "mediumpurple", transparent: true, opacity: 0})
   const indicatorMaterial = new THREE.MeshBasicMaterial({color: "white", transparent: true, opacity: 0.5})
 
   const handleRoomSelect = useRoom((state) => state.handleRoomSelect)
 
-  const [gsapContext] = useState(gsap.context(() => {}))
-  const [animating, setAnimating] = useState(false)
 
-  const handleMouse = () => {
+  const tl = useRef();
 
-      updateHovered(true)
 
-      setAnimating(true)
 
-      gsapContext.add(() => {
-        const tl = gsap.timeline()
-
-        gsap.to(glass.current.position, { 
-          y: 1
-        });
-        gsap.to(glass.current.scale, { 
-          y: targetScale.y
-        });
-  
-        tl
-          .to(textLine.current.scale, { 
+  useLayoutEffect(() => {
+    const ctx = gsap.context((self) => {
+      console.log(self)
+      // const boxes = self.selector('.box');
+      tl.current = gsap
+        .timeline({paused: true})
+          .to(glass.current?.position, { 
             y: 1
           })
-          .to(textLine.current.position, { 
+          .to(glass.current?.scale, { 
+            y: targetScale.y
+          }, "-=100%")
+          .to(textLine.current?.scale, { 
+            y: 1
+          }, "-=100%")
+          .to(textLine.current?.position, { 
           y: 0
           }, '-=100%')
           .to(text.current, { 
             opacity: 1
-          }, "-=50%")
-          .add(()=>{
-            setAnimating(false)
-          })
-      });
+          }, "-=60%")
+    },[group]); // <- Scope!
+    return () => ctx.revert(); // <- Cleanup!
+  }, [text.current, textLine.current, glass.current]);
+
+
+  const handleMouse = () => {
+
+      updateHovered(true)
+      //console.log(ctx)
+      tl.current.play()
+      //setAnimating(true)
+
+
 
 
   }
   const handleMouseOut = () => {
 
-    updateHovered(false)
-
-    if(animating) {
-      gsapContext.revert()
-      return
-    } 
-
-    gsapContext.add(() => {
-      const mouseOurTl = gsap.timeline()
-
-      gsap.to(glass.current.position, { 
-        y: -1
-      });
-      gsap.to(glass.current.scale, { 
-        y: 0
-      });
-      mouseOurTl
-        .to(text.current, { 
-          opacity: 0
-        })
-        .to(textLine.current.scale, { 
-          y: 0
-        }, "-=50%")
-        .to(textLine.current.position, { 
-        y: -2.5
-        }, '-=100%')
-
-    });
-
-
-
+      updateHovered(false)
+      tl.current.reverse()
   }
 
   const handleClick = () => {
@@ -104,7 +82,7 @@ export default function Room({
 
   return (
     <>
-      <group position={[targetPos.x, targetPos.y, targetPos.z]}>
+      <group ref={group} position={[targetPos.x, targetPos.y, targetPos.z]}>
 
 
         <mesh ref={glass} position-y={-1} scale-z={targetScale.z} scale-x={targetScale.x} scale-y={0} material={indicatorMaterial}>
