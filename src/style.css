@@ -39,6 +39,10 @@
     font-display: swap;
 }
 
+body {
+    overscroll-behavior: none !important;
+}
+
 html,
 body,
 #root
