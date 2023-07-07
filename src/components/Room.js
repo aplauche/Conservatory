@@ -56,16 +56,20 @@ export default function Room({
 
   const handleMouse = () => {
 
+    if(window.innerWidth > 768){
       updateHovered(true)
       //console.log(ctx)
       tl.current.play()
       //setAnimating(true)
+    }
+
 
   }
   const handleMouseOut = () => {
-
+    if(window.innerWidth > 768){
       updateHovered(false)
       tl.current.reverse()
+    }
   }
 
   const handleClick = () => {
