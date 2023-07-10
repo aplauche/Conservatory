@@ -180,7 +180,7 @@ export default function MainScene(){
           } else {
             // PORTRAIT
             //setEnableSpin(true)
-            camera.current.fov=35
+            camera.current.fov=30
           }
     })
 

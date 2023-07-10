@@ -57,7 +57,7 @@ export default function MainPage(){
     
           </Canvas>
 
-          {!isMobile && (
+          {!isMobile ? (
             <>
               <Instructions keyVal="main" isVisible={!currentlySelected} position="bottom">
                 Click and drag to rotate
@@ -67,6 +67,10 @@ export default function MainPage(){
                 Click to return to main view
               </Instructions>
             </>
+          ) : (
+            <Instructions keyVal="tap" isVisible={!currentlySelected} position="bottom">
+              Tap a building for details
+            </Instructions>
           )}
 
 
