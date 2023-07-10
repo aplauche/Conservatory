@@ -24,7 +24,7 @@ export default function Drawer( ){
             <div className="name py-4 my-4 flex items-center">
               <img className="w-[60px] h-[60px] object-contain" src="/images/gc-logo.svg" alt="" />
 
-              <h1 className="ml-4 text-4xl font-bold mt-2">{cachedSelected?.name}</h1>
+              <h1 className="ml-4 text-2xl lg:text-4xl font-bold mt-2">{cachedSelected?.name}</h1>
             </div>
             {cachedSelected?.photo && (
               <a href={`/room/${currentlySelected?.slug}`} className="image block">
@@ -35,14 +35,14 @@ export default function Drawer( ){
             <div dangerouslySetInnerHTML={{__html:cachedSelected?.description }}  className="info py-8">
             </div>
             {cachedSelected?.stats && (
-                <h3 className="text-xl font-bold mb-3">Quick Facts:</h3>
+                <h3 className=" text-md lg:text-xl font-bold mb-3">Quick Facts:</h3>
               )}
             <div className="grid grid-cols-2 gap-2 mb-6">
 
               {cachedSelected?.stats && cachedSelected?.stats.map(stat => (
                 <div key={stat.title} className="border border-light px-4 py-8 text-center">
                   <p className="mb-2 text-light-green">{stat.title}</p>
-                  <div className="text-medium-text  font-bold text-4xl">
+                  <div className="text-medium-text  font-bold text-2xl lg:text-4xl">
                     {stat.stat}
                   </div>
                 </div>

@@ -26,7 +26,13 @@ export default function MainScene(){
         z: 0
     }
 
+    const {gl} = useThree()
+    console.log(gl)
+
+
     const currentlySelected = useRoom(state => state.currentlySelected)
+
+    const [enableSpin, setEnableSpin] = useState(true)
 
     // const optionsRot = useMemo(() => {
     //     return {
@@ -166,7 +172,17 @@ export default function MainScene(){
 
 
 
-
+    useFrame(() => {
+        if (window.innerWidth > window.innerHeight) {
+            // LANDSCAPE
+            //setEnableSpin(true)
+            camera.current.fov=22
+          } else {
+            // PORTRAIT
+            //setEnableSpin(true)
+            camera.current.fov=35
+          }
+    })
 
 
   
@@ -181,7 +197,7 @@ export default function MainScene(){
             name="FBO Camera"
             makeDefault
             ref={camera}
-            fov={22}
+            fov={window.innerWidth > window.innerHeight ? 22 : 35}
             near={0.1}
             far={200}
             // position={[  45, 22, 30 ]}
@@ -206,7 +222,7 @@ export default function MainScene(){
 
         <PresentationControls
             enabled={true} // the controls can be disabled by setting this to false
-            global={false} // Spin globally or by dragging the model
+            global={true} // Spin globally or by dragging the model
             cursor={true} // Whether to toggle cursor style on drag
             snap={true} // Snap-back to center (can also be a spring config)
             speed={1} // Speed factor
@@ -215,6 +231,7 @@ export default function MainScene(){
             polar={[-Math.PI / 8, Math.PI / 2]} // Vertical limits
             azimuth={[-Infinity, Infinity]} // Horizontal limits
             config={{ mass: 1, tension: 170, friction: 50 }} // Spring config
+            domElement={gl.domElement}
         > 
 
         <group ref={mainObject} rotation-y={-Math.PI /4 - 0.2} >
