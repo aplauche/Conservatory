@@ -40,7 +40,7 @@ export default function Drawer( ){
             <div className="grid grid-cols-2 gap-2 mb-6">
 
               {cachedSelected?.stats && cachedSelected?.stats.map(stat => (
-                <div key={stat.title} className="border border-light px-4 py-8 text-center">
+                <div key={stat.title} className="bg-white shadow-sm rounded-md px-4 py-8 text-center">
                   <p className="mb-2 text-light-green">{stat.title}</p>
                   <div className="text-medium-text  font-bold text-2xl lg:text-4xl">
                     {stat.stat}
